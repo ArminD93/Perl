@@ -1,0 +1,5 @@
+.
+..
+DopasowanieWyrazów.pl
+Internet_of_things
+list.txt
