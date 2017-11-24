@@ -5,29 +5,28 @@ print "################################################################\n";
 print "Aby dopisac do pliku wpisz 'dopisz'\n";
 print "Aby wyswietlic zawartosc pliku wpisz 'odczyt'\n";
 my $wybor=<STDIN>;
-print "wybrano: $wybor";
-print "wpisz: 'koniec' by zakonczyc dopisywanie";
-if ($wybor == "dopisz")
+print "wybrano: $wybor\n";
+if ($wybor eq "dopisz\n")
 {
-	while ($ImieNazwisko == "koniec")
+	while ($wybor ne "koniec\n")
 	{
 		open(OUTFILE, ">>dane.txt");
 		print("Podaj imie i nazwisko: ");
 		my $ImieNazwisko=<STDIN>;
 		print OUTFILE $ImieNazwisko;
 	}
+
 }
-#print "Czy wyswietlic zawartosc pliku? Wpisz: tak/nie\n";
-if ($wybor == "tak")
+elsif ($wybor eq "odczyt\n")
 {
+print "czytanie pliku\n";
+	close OUTFILE;
 	open(INFILE, "dane.txt");
 	my @wiersze=<INFILE>;
 	foreach (@wiersze)
 	{
 		printf("%s\n",$_);
 	}
+	close INFILE;
 }
-else
-{
- print "Wpisz komende: dopisz lub wybierz";
-}
+
