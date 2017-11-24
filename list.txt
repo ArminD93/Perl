@@ -1,0 +1,17 @@
+.
+..
+.5.swp
+definicje.pl
+foreach.pl
+get_data.pl
+get_dataV2.pl
+.git
+hello.pl
+ile_liczb.pl
+list.txt
+petla.pl
+petlaV2.pl
+porownaj.pl
+porownajV2.pl
+ProgramowanieSieciowe
+tablica.pl
