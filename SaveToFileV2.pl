@@ -1,13 +1,5 @@
 #!/usr/bin/env perl
-
-print "               Wpisz ponizej wybrana komende:\n";
-print "################################################################\n";
-print "Aby dopisac do pliku wpisz 'dopisz'\n";
-print "Aby wyswietlic zawartosc pliku wpisz 'odczyt'\n";
-#my $wybor=<STDIN>;
-#print "wybrano: $ImieNazwisko\n";
-#if ($wybor eq "dopisz\n")
-#{	
+	
 	open(OUTFILE, ">>dane.txt");
 	print "otwieranie pliku\n";
 	print "start petli\n";
