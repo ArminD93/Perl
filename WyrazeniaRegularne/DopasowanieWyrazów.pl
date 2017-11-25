@@ -9,19 +9,29 @@ else
 {
 	open INFILE, $ARGV[0];
 	my @wiersze=<INFILE>;
+	my $licznik=0;
+	
 	foreach (@wiersze)
 	{
 	
 		if ($_ =~ /$ARGV[1]/)
 		{
 		
-		print " Brawo.Odnaleziono słowo => $_\n";
+			chomp($_);
+		 	my @wyraz = split( / /,$linia);
+			foreach my $word(@wyraz)
+			{
+			$word++;
+			}
 		
+						
+			print "$word\n";
+				
 		}
 		else
 		{
-		print "Nic nie znaleziono\n"
-		
+		print "Nic nie znaleziono tutaj: ";
+		print "$_\n";
 		}
 	}
 	close INFILE;
