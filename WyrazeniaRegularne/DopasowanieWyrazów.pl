@@ -17,8 +17,8 @@ else
 		if ($_ =~ /$ARGV[1]/)
 		{
 		
-			chomp($_);
-		 	my @wyraz = split( / /,$linia);
+			
+		 	my @wyraz = split( / /,$_);
 			foreach my $word(@wyraz)
 			{
 			$word++;
