@@ -13,26 +13,17 @@ else
 	
 	foreach (@wiersze)
 	{
-	
-		if ($_ =~ /$ARGV[1]/)
-		{
-		
-			
-		 	my @wyraz = split( / /,$_);
-			foreach my $word(@wyraz)
+	 	@wyraz = split(/ /);
+
+		foreach (@wyraz)
 			{
-			$word++;
-			}
-		
-						
-			print "$word\n";
-				
-		}
-		else
-		{
-		print "Nic nie znaleziono tutaj: ";
-		print "$_\n";
-		}
-	}
+				if ($_ =~ /$ARGV[1]/i)
+				{
+					$licznik++;
+				}
+			}							}
+
+	print "Wyraz $ARGV[1] występuje w tekscie $licznik razy\n";
+
 	close INFILE;
 }
