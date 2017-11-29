@@ -1,6 +1,8 @@
 .
 ..
 .5.swp
+czytanie_pliku.pl
+dane.txt
 definicje.pl
 foreach.pl
 get_data.pl
@@ -14,4 +16,7 @@ petlaV2.pl
 porownaj.pl
 porownajV2.pl
 ProgramowanieSieciowe
+SaveToFile.pl
+SaveToFileV2.pl
 tablica.pl
+WyrazeniaRegularne
