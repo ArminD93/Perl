@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use IO::Socket;
-$host_www = "www.ely.pg.gda.pl"; #aadres hosta www
+$host_www = "www.youtube.com"; #adres hosta www
 $EOL = "\015\012";#zapytanie GET / HTTP/ 1.0 wymaga \n\n
 $BLANK = $EOL x 2; #ze wzgledu na powyzsze
 

@@ -1,0 +1,3779 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>WWW::Mechanize - Handy web browsing in a Perl object - metacpan.org</title>
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/distribution/WWW-Mechanize" />
+        <link href="/_assets/37d91de73447269b48e6d2d61d029effaade227a.css" rel="stylesheet" type="text/css">
+        <link rel="search" href="/static/opensearch.xml" type="application/opensearchdescription+xml" title="MetaCPAN">
+        <link rel="canonical" href="https://metacpan.org/pod/WWW::Mechanize" />
+        <meta name="description" content="Handy web browsing in a Perl object" />
+        <link rel="shortcut icon" href="/static/icons/favicon.ico">
+        <link rel="apple-touch-icon" sizes="152x152" href="/static/icons/apple-touch-icon.png">
+        <script src="/_assets/44bba1e08c97872caf49a4e12090f851725f9302.js" type="text/javascript"></script>
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-27829474-1', {
+              siteSpeedSampleRate : 100
+          });
+          ga('send', 'pageview');
+
+          ga(function() {
+            var cookies=['__utma', '__utmb', '__utmc', '__utmv', '__utmz', '_gat'];
+            for (var i = cookies.length; i--; ) {
+              var cookie = cookies[i]+"=; expires="+(new Date(0)).toGMTString()+"; path=/";
+              document.cookie = cookie;
+              document.cookie = cookie + '; domain=.'+document.domain;
+            }
+          });
+        </script>
+        
+        
+        <meta name="twitter:card"        content="summary" />
+<meta name="twitter:url"         content="https://metacpan.org/pod/WWW::Mechanize" />
+<meta name="twitter:title"       content="WWW::Mechanize" />
+<meta name="twitter:description" content="Handy web browsing in a Perl object" />
+<meta name="twitter:site"        content="metacpan" />
+
+        
+    </head>
+    <body>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                <li class="visible-xs">
+                <a href="#" data-toggle="slidepanel" data-target=".slidepanel">
+                  <i class="fa fa-bars fa-2x icon-slidepanel"></i>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </a>
+                </li>
+            
+                    <li class="">
+                        <a href="/"><img src="/static/icons/metacpan-icon.png" />                            Home                        </a>
+                    </li>
+                    <li class="">
+                        <a href="https://grep.metacpan.org"><i class="fa fa-search"></i>                            grep::cpan                        </a>
+                    </li>
+                    <li class="">
+                        <a href="/recent"><i class="fa fa-history"></i>                            Recent                        </a>
+                    </li>
+                    <li class="hidden-xs">
+                        <a href="/about"><i class="fa fa-info"></i>                            About                        </a>
+                    </li>
+                    <li class="hidden-xs">
+                        <a href="/about/faq"><i class="fa fa-question"></i>                            FAQ                        </a>
+                    </li>
+                    <li class="hidden-xs">
+                        <a href="https://github.com/metacpan/metacpan-web/issues"><i class="fa fa-github-alt"></i>                            GitHub Issues                        </a>
+                    </li>
+                    <li class="hidden-xs">
+                        <a href="/news"><i class="fa fa-newspaper-o"></i>                            News                        </a>
+                    </li>
+                    <li class="hidden-xs">
+                        <a href="/lab"><i class="fa fa-rocket"></i>                            Lab                        </a>
+                    </li>
+                    <li class="hidden-xs">
+                        <a href="https://fastapi.metacpan.org"><i class="fa fa-database"></i>                            API                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <form action="https://metacpan.org/account/logout" method="POST" id="metacpan-logout"></form>
+                    <li class="dropdown logged_in" style="display: none;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Account
+                        <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/account/identities">Identities</a></li>
+                            <li><a href="/account/profile">Profile</a></li>
+                            <li><a href="/account/favorite/list">Favorites</a></li>
+                            <li>
+                                <a href="#" onclick="$('#metacpan-logout').submit(); return false">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown logged_out" style="display: none;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Sign in
+                        <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://fastapi.metacpan.org/oauth2/authorize?client_id=metacpan.org&amp;choice=facebook" onclick="return logInPAUSE(this)">
+                                <i class="fa fa-facebook fa-fw"></i>
+                                Facebook
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://fastapi.metacpan.org/oauth2/authorize?client_id=metacpan.org&amp;choice=github" onclick="return logInPAUSE(this)">
+                                <i class="fa fa-github fa-fw"></i>
+                                GitHub
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://fastapi.metacpan.org/oauth2/authorize?client_id=metacpan.org&amp;choice=twitter" onclick="return logInPAUSE(this)">
+                                <i class="fa fa-twitter fa-fw"></i>
+                                Twitter
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://fastapi.metacpan.org/oauth2/authorize?client_id=metacpan.org&amp;choice=google" onclick="return logInPAUSE(this)">
+                                <i class="fa fa-google fa-fw"></i>
+                                Google
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/login/openid">
+                                <i class="fa fa-openid fa-fw"></i>
+                                OpenID
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+
+        
+
+            
+            <div class="row hidden-phone">
+                <div class="head-small-logo col-md-3">
+                    <a href="/" class="small-logo"></a>
+                </div>
+                <div class="col-md-9">
+                    <form action="/search" class="search-form form-horizontal">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" name="q" size="41" id="search-input" class="form-control" value="">
+                                <span class="input-group-btn">
+                                    <button class="btn search-btn" type="submit">Search</button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+
+            <div class="row">
+                <div class="main-content col-md-12">
+                    
+
+
+
+
+<div itemscope itemtype="http://schema.org/SoftwareApplication">
+  
+
+
+<div class="breadcrumbs">
+  <span itemprop="author" itemscope itemtype="http://schema.org/Person" >
+    <a itemprop="url"  data-keyboard-shortcut="g a" rel="author" href="/author/OALDERS" title="" class="author-name"><span itemprop="name" >Olaf Alders 🐫</span></a>
+  </span>
+  <span>&nbsp;/&nbsp;</span>
+  <div class="release status-latest maturity-released">
+    <span class="dropdown"><b class="caret"></b></span>
+    <select class="" onchange="document.location.href=this.value">
+
+  <option selected value="/module/OALDERS/WWW-Mechanize-1.86/lib/WWW/Mechanize.pm">
+    1.86
+      (OALDERS on 2017-07-04)
+      
+  </option>
+
+  <option  value="/module/OALDERS/WWW-Mechanize-1.85/lib/WWW/Mechanize.pm">
+    1.85
+      (OALDERS on 2017-06-28)
+      
+  </option>
+
+  <option  value="/module/OALDERS/WWW-Mechanize-1.84/lib/WWW/Mechanize.pm">
+    1.84
+      (OALDERS on 2017-03-07)
+      
+  </option>
+
+  <option  value="/module/OALDERS/WWW-Mechanize-1.83/lib/WWW/Mechanize.pm">
+    1.83
+      (OALDERS on 2016-10-14)
+      
+  </option>
+
+  <option  value="/module/OALDERS/WWW-Mechanize-1.82/lib/WWW/Mechanize.pm">
+    1.82
+      (OALDERS on 2016-10-07)
+      
+  </option>
+
+  <option  value="/module/OALDERS/WWW-Mechanize-1.81/lib/WWW/Mechanize.pm">
+    1.81
+      (OALDERS on 2016-10-06)
+      
+  </option>
+
+  <option  value="/module/OALDERS/WWW-Mechanize-1.80/lib/WWW/Mechanize.pm">
+    1.80
+      (OALDERS on 2016-09-25)
+      
+  </option>
+
+  <option  value="/module/OALDERS/WWW-Mechanize-1.79/lib/WWW/Mechanize.pm">
+    1.79
+      (OALDERS on 2016-09-17)
+      
+  </option>
+
+  <option  value="/module/OALDERS/WWW-Mechanize-1.78/lib/WWW/Mechanize.pm">
+    1.78
+      (OALDERS on 2016-08-08)
+      
+  </option>
+
+  <option  value="/module/OALDERS/WWW-Mechanize-1.77-TRIAL/lib/WWW/Mechanize.pm">
+    1.77 DEV
+      (OALDERS on 2016-08-05)
+      
+  </option>
+
+  <option  value="/module/OALDERS/WWW-Mechanize-1.76-TRIAL/lib/WWW/Mechanize.pm">
+    1.76 DEV
+      (OALDERS on 2016-07-29)
+      
+  </option>
+
+  <option  value="/module/ETHER/WWW-Mechanize-1.75/lib/WWW/Mechanize.pm">
+    1.75
+      (ETHER on 2015-06-03)
+      
+  </option>
+
+  <option  value="/module/MSTROUT/WWW-Mechanize-1.72_02/lib/WWW/Mechanize.pm">
+    1.72_02 DEV
+      (MSTROUT on 2012-04-27)
+      
+  </option>
+
+  <option  value="/module/MSTROUT/WWW-Mechanize-1.72_01/lib/WWW/Mechanize.pm">
+    1.72_01 DEV
+      (MSTROUT on 2012-03-24)
+      
+  </option>
+
+  <option  value="/module/JESSE/WWW-Mechanize-1.72/lib/WWW/Mechanize.pm">
+    1.72
+      (JESSE on 2012-02-02)
+      
+  </option>
+
+  <option  value="/module/JESSE/WWW-Mechanize-1.71/lib/WWW/Mechanize.pm">
+    1.71
+      (JESSE on 2011-11-25)
+      
+  </option>
+
+  <option  value="/module/JESSE/WWW-Mechanize-1.70/lib/WWW/Mechanize.pm">
+    1.70
+      (JESSE on 2011-08-26)
+      
+  </option>
+
+  <option  value="/module/JASONMAY/WWW-Mechanize-1.69_01/lib/WWW/Mechanize.pm">
+    1.69_01 DEV
+      (JASONMAY on 2011-08-01)
+      
+  </option>
+
+  <option  value="/module/JESSE/WWW-Mechanize-1.68/lib/WWW/Mechanize.pm">
+    1.68
+      (JESSE on 2011-04-21)
+      
+  </option>
+
+  <option  value="/module/JESSE/WWW-Mechanize-1.67_01/lib/WWW/Mechanize.pm">
+    1.67_01 DEV
+      (JESSE on 2011-04-07)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.66/lib/WWW/Mechanize.pm">
+    1.66
+      (PETDANCE on 2010-09-10)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.64/lib/WWW/Mechanize.pm">
+    1.64
+      (PETDANCE on 2010-07-01)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.62/lib/WWW/Mechanize.pm">
+    1.62
+      (PETDANCE on 2010-04-11)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.60/lib/WWW/Mechanize.pm">
+    1.60
+      (PETDANCE on 2009-08-17)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.58/lib/WWW/Mechanize.pm">
+    1.58
+      (PETDANCE on 2009-07-14)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.56/lib/WWW/Mechanize.pm">
+    1.56
+      (PETDANCE on 2009-07-10)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.55_01/lib/WWW/Mechanize.pm">
+    1.55_01 DEV
+      (PETDANCE on 2009-07-06)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.54/lib/WWW/Mechanize.pm">
+    1.54
+      (PETDANCE on 2009-01-12)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.52/lib/WWW/Mechanize.pm">
+    1.52
+      (PETDANCE on 2008-11-25)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.50/lib/WWW/Mechanize.pm">
+    1.50
+      (PETDANCE on 2008-10-27)
+      
+  </option>
+        <optgroup label="BackPAN">
+          
+
+  <option  value="/module/ETHER/WWW-Mechanize-1.74/lib/WWW/Mechanize.pm">
+    1.74
+      (ETHER on 2015-01-24)
+      
+  </option>
+
+  <option  value="/module/ETHER/WWW-Mechanize-1.73/lib/WWW/Mechanize.pm">
+    1.73
+      (ETHER on 2013-08-24)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.51_03/lib/WWW/Mechanize.pm">
+    1.51_03 DEV
+      (PETDANCE on 2008-11-20)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.51_02/lib/WWW/Mechanize.pm">
+    1.51_02 DEV
+      (PETDANCE on 2008-11-18)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.51_01/lib/WWW/Mechanize.pm">
+    1.51_01 DEV
+      (PETDANCE on 2008-11-06)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.49_01/lib/WWW/Mechanize.pm">
+    1.49_01 DEV
+      (PETDANCE on 2008-09-28)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.34/lib/WWW/Mechanize.pm">
+    1.34
+      (PETDANCE on 2007-12-10)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.32/lib/WWW/Mechanize.pm">
+    1.32
+      (PETDANCE on 2007-10-30)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.31_02/lib/WWW/Mechanize.pm">
+    1.31_02 DEV
+      (PETDANCE on 2007-10-25)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.31_01/lib/WWW/Mechanize.pm">
+    1.31_01 DEV
+      (PETDANCE on 2007-09-18)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.30/lib/WWW/Mechanize.pm">
+    1.30
+      (PETDANCE on 2007-05-25)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.29_01/lib/WWW/Mechanize.pm">
+    1.29_01 DEV
+      (PETDANCE on 2007-05-22)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.26/lib/WWW/Mechanize.pm">
+    1.26
+      (PETDANCE on 2007-05-16)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.24/lib/WWW/Mechanize.pm">
+    1.24
+      (PETDANCE on 2007-05-11)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.22/lib/WWW/Mechanize.pm">
+    1.22
+      (PETDANCE on 2007-03-02)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.21_04/lib/WWW/Mechanize.pm">
+    1.21_04 DEV
+      (PETDANCE on 2006-10-08)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.21_03/lib/WWW/Mechanize.pm">
+    1.21_03 DEV
+      (PETDANCE on 2006-10-07)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.21_02/lib/WWW/Mechanize.pm">
+    1.21_02 DEV
+      (PETDANCE on 2006-10-04)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.21_01/lib/WWW/Mechanize.pm">
+    1.21_01 DEV
+      (PETDANCE on 2006-09-18)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.20/lib/WWW/Mechanize.pm">
+    1.20
+      (PETDANCE on 2006-08-19)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.19_02/lib/WWW/Mechanize.pm">
+    1.19_02 DEV
+      (PETDANCE on 2006-08-08)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.18/lib/WWW/Mechanize.pm">
+    1.18
+      (PETDANCE on 2006-02-02)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.17_01/lib/WWW/Mechanize.pm">
+    1.17_01 DEV
+      (PETDANCE on 2006-01-12)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.16/lib/WWW/Mechanize.pm">
+    1.16
+      (PETDANCE on 2005-10-28)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.14/lib/WWW/Mechanize.pm">
+    1.14
+      (PETDANCE on 2005-08-30)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.13_01/lib/WWW/Mechanize.pm">
+    1.13_01 DEV
+      (PETDANCE on 2005-04-12)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.12/lib/WWW/Mechanize.pm">
+    1.12
+      (PETDANCE on 2005-02-25)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.11_02/lib/WWW/Mechanize.pm">
+    1.11_02 DEV
+      (PETDANCE on 2005-02-22)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.11_01/lib/WWW/Mechanize.pm">
+    1.11_01 DEV
+      (PETDANCE on 2005-02-14)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.10/lib/WWW/Mechanize.pm">
+    1.10
+      (PETDANCE on 2005-02-02)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.08/lib/WWW/Mechanize.pm">
+    1.08
+      (PETDANCE on 2004-12-24)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.06/lib/WWW/Mechanize.pm">
+    1.06
+      (PETDANCE on 2004-12-08)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.05_04/lib/WWW/Mechanize.pm">
+    1.05_04 DEV
+      (PETDANCE on 2004-11-06)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.05_03/lib/WWW/Mechanize.pm">
+    1.05_03 DEV
+      (PETDANCE on 2004-11-01)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.05_02/lib/WWW/Mechanize.pm">
+    1.05_02 DEV
+      (PETDANCE on 2004-10-02)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.05_01/lib/WWW/Mechanize.pm">
+    1.05_01 DEV
+      (PETDANCE on 2004-10-01)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.04/lib/WWW/Mechanize.pm">
+    1.04
+      (PETDANCE on 2004-09-16)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.03_02/lib/WWW/Mechanize.pm">
+    1.03_02 DEV
+      (PETDANCE on 2004-08-17)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.03_01/lib/WWW/Mechanize.pm">
+    1.03_01 DEV
+      (PETDANCE on 2004-05-27)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.02/lib/WWW/Mechanize.pm">
+    1.02
+      (PETDANCE on 2004-04-14)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-1.00/lib/WWW/Mechanize.pm">
+    1.00
+      (PETDANCE on 2004-04-10)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.76/lib/WWW/Mechanize.pm">
+    0.76
+      (PETDANCE on 2004-04-08)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.75_02/lib/WWW/Mechanize.pm">
+    0.75_02 DEV
+      (PETDANCE on 2004-04-05)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.75_01/lib/WWW/Mechanize.pm">
+    0.75_01 DEV
+      (PETDANCE on 2004-03-28)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.74/lib/WWW/Mechanize.pm">
+    0.74
+      (PETDANCE on 2004-03-23)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.73_03/lib/WWW/Mechanize.pm">
+    0.73_03 DEV
+      (PETDANCE on 2004-03-21)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.73_02/lib/WWW/Mechanize.pm">
+    0.73_02 DEV
+      (PETDANCE on 2004-03-03)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.73_01/lib/WWW/Mechanize.pm">
+    0.73_01 DEV
+      (PETDANCE on 2004-02-29)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.72/lib/WWW/Mechanize.pm">
+    0.72
+      (PETDANCE on 2004-01-13)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.71_02/lib/WWW/Mechanize.pm">
+    0.71_02 DEV
+      (PETDANCE on 2003-12-22)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.71_01/lib/WWW/Mechanize.pm">
+    0.71_01 DEV
+      (PETDANCE on 2003-12-22)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.70/lib/WWW/Mechanize.pm">
+    0.70
+      (PETDANCE on 2003-12-01)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.69_01/lib/WWW/Mechanize.pm">
+    0.69_01 DEV
+      (PETDANCE on 2003-11-26)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.66/lib/WWW/Mechanize.pm">
+    0.66
+      (PETDANCE on 2003-11-13)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.65/lib/WWW/Mechanize.pm">
+    0.65
+      (PETDANCE on 2003-11-10)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.64/lib/WWW/Mechanize.pm">
+    0.64
+      (PETDANCE on 2003-10-24)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.63/lib/WWW/Mechanize.pm">
+    0.63
+      (PETDANCE on 2003-10-13)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.62/lib/WWW/Mechanize.pm">
+    0.62
+      (PETDANCE on 2003-10-08)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.61/lib/WWW/Mechanize.pm">
+    0.61
+      (PETDANCE on 2003-10-06)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.60/lib/WWW/Mechanize.pm">
+    0.60
+      (PETDANCE on 2003-09-23)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.59/lib/WWW/Mechanize.pm">
+    0.59
+      (PETDANCE on 2003-09-04)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.58/lib/WWW/Mechanize.pm">
+    0.58
+      (PETDANCE on 2003-08-15)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.57/lib/WWW/Mechanize.pm">
+    0.57
+      (PETDANCE on 2003-08-01)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.56/lib/WWW/Mechanize.pm">
+    0.56
+      (PETDANCE on 2003-07-24)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.55/lib/WWW/Mechanize.pm">
+    0.55
+      (PETDANCE on 2003-07-22)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.54/lib/WWW/Mechanize.pm">
+    0.54
+      (PETDANCE on 2003-07-20)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.53/lib/WWW/Mechanize.pm">
+    0.53
+      (PETDANCE on 2003-07-17)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.52/lib/WWW/Mechanize.pm">
+    0.52
+      (PETDANCE on 2003-07-08)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.51/lib/WWW/Mechanize.pm">
+    0.51
+      (PETDANCE on 2003-06-30)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.50/lib/WWW/Mechanize.pm">
+    0.50
+      (PETDANCE on 2003-06-24)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.49/lib/WWW/Mechanize.pm">
+    0.49
+      (PETDANCE on 2003-06-23)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.48/lib/WWW/Mechanize.pm">
+    0.48
+      (PETDANCE on 2003-06-22)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.47/lib/WWW/Mechanize.pm">
+    0.47
+      (PETDANCE on 2003-06-22)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.46/lib/WWW/Mechanize.pm">
+    0.46
+      (PETDANCE on 2003-06-20)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.45/lib/WWW/Mechanize.pm">
+    0.45
+      (PETDANCE on 2003-06-17)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.44/lib/WWW/Mechanize.pm">
+    0.44
+      (PETDANCE on 2003-06-05)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.43/lib/WWW/Mechanize.pm">
+    0.43
+      (PETDANCE on 2003-05-29)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.42/lib/WWW/Mechanize.pm">
+    0.42
+      (PETDANCE on 2003-05-27)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.41/lib/WWW/Mechanize.pm">
+    0.41
+      (PETDANCE on 2003-05-23)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.40/lib/WWW/Mechanize.pm">
+    0.40
+      (PETDANCE on 2003-04-20)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.39/lib/WWW/Mechanize.pm">
+    0.39
+      (PETDANCE on 2003-04-02)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.38/lib/WWW/Mechanize.pm">
+    0.38
+      (PETDANCE on 2003-03-25)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.37/lib/WWW/Mechanize.pm">
+    0.37
+      (PETDANCE on 2003-03-04)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.36/lib/WWW/Mechanize.pm">
+    0.36
+      (PETDANCE on 2003-02-04)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.35/lib/WWW/Mechanize.pm">
+    0.35
+      (PETDANCE on 2003-01-22)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.33/lib/WWW/Mechanize.pm">
+    0.33
+      (PETDANCE on 2003-01-16)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.32/lib/WWW/Mechanize.pm">
+    0.32
+      (PETDANCE on 2002-10-24)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.31/lib/WWW/Mechanize.pm">
+    0.31
+      (PETDANCE on 2002-09-13)
+      
+  </option>
+
+  <option  value="/module/PETDANCE/WWW-Mechanize-0.30/lib/WWW/Mechanize.pm">
+    0.30
+      (PETDANCE on 2002-09-10)
+      
+  </option>
+        </optgroup>
+    
+</select>
+    
+    <a data-keyboard-shortcut="g d" class="release-name" href="/release/WWW-Mechanize">WWW-Mechanize-1.86</a>
+    
+    
+  </div>
+  <div class="inline"><script type="text/javascript">
+  MetaCPAN.favs_to_check['WWW-Mechanize'] = 1;
+</script>
+
+<div id="WWW-Mechanize-fav" class="logged_in">
+<form action="/account/favorite/add" style="display: inline" onsubmit="return favDistribution(this)">
+    <input type="hidden" name="remove" value="0">
+    <input type="hidden" name="release" value="WWW-Mechanize-1.86">
+    <input type="hidden" name="author" value="OALDERS">
+    <input type="hidden" name="distribution" value="WWW-Mechanize">
+    <button type="submit" class="favorite highlight"><span>72</span> ++</button>
+</form>
+</div>
+<div class="logged_out">
+<a href="" onclick="alert('Please sign in to add favorites'); return false" class="favorite highlight">
+<span>72</span> ++</a>
+</div>
+</div>
+  &nbsp;/&nbsp;<span itemprop="name" >WWW::Mechanize</span>
+</div>
+
+
+  <ul class="nav-list slidepanel">
+    <li class="visible-xs">
+      <div>
+    <form action="/search">
+        <input type="search" class="form-control tool-bar-form" placeholder="Search" name="q">
+        <input type="submit" class="hidden">
+    </form>
+</div>
+
+    </li>
+    <li class="nav-header">
+      <time class="relatize" itemprop="dateModified" datetime="2017-07-04">04 Jul 2017 15:51:05 GMT</time>
+    </li>
+    
+    <li>
+      Module version: <span itemprop="softwareVersion">1.86</span>
+    </li>
+    
+    <li>
+      <a data-keyboard-shortcut="g s" href="/source/OALDERS/WWW-Mechanize-1.86/lib/WWW/Mechanize.pm"><i class="fa fa-fw fa-file-code-o black"></i>Source</a>
+      (<a href="https://st.aticpan.org/source/OALDERS/WWW-Mechanize-1.86/lib/WWW/Mechanize.pm">raw</a>)
+    </li>
+    
+    <li>
+      <a data-keyboard-shortcut="g b" href="/source/OALDERS/WWW-Mechanize-1.86/lib/WWW"><i class="fa fa-fw fa-folder-open black"></i>Browse</a>
+      (<a href="https://st.aticpan.org/source/OALDERS/WWW-Mechanize-1.86/">raw</a>)
+    </li>
+    <li>
+    <a data-keyboard-shortcut="g c" href="/changes/distribution/WWW-Mechanize"><i class="fa fa-fw fa-cogs black"></i>Changes</a>
+</li>
+
+<li>
+    <a class="nopopup" href="https://github.com/libwww-perl/WWW-Mechanize"><i class="fa fa-fw fa-external-link black"></i>Homepage</a>
+</li>
+
+
+<li>
+    
+    <a data-keyboard-shortcut="g r" href="https://github.com/libwww-perl/WWW-Mechanize"><i class="fa fa-fw fa-code-fork black"></i>Repository</a>
+    
+    
+    (<a href="https://github.com/libwww-perl/WWW-Mechanize.git">git clone</a>)
+    
+</li>
+
+<li>
+    <a data-keyboard-shortcut="g i" href="https://github.com/libwww-perl/WWW-Mechanize/issues"><i class="fa fa-fw fa-info-circle black"></i>Issues</a>
+    (152)
+</li>
+
+<li>
+    
+<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" >
+  <a href="https://cpanratings.perl.org/rate/?distribution=WWW-Mechanize"><i class="fa fa-fw fa-smile-o black"></i><span class="rating-50"></span></a><span class="hidden" itemprop="ratingValue" >5</span> (<a href="https://cpanratings.perl.org/dist/WWW-Mechanize"><span itemprop="reviewCount" >16</span> reviews</a>)
+</span>
+
+</li>
+
+<li>
+    
+    <a href="https://matrix.cpantesters.org/?dist=WWW-Mechanize+1.86" title="Matrix"><i class="fa fa-fw fa-check-circle black"></i>Testers</a>
+    <span title="(pass / fail / na)">(<a href="https://www.cpantesters.org/distro/W/WWW-Mechanize.html?oncpan=1&amp;distmat=1&amp;version=1.86&amp;grade=2" style="color: #090">1444</a> / <a href="https://www.cpantesters.org/distro/W/WWW-Mechanize.html?oncpan=1&amp;distmat=1&amp;version=1.86&amp;grade=3" style="color: #900">1</a> / <a href="https://www.cpantesters.org/distro/W/WWW-Mechanize.html?oncpan=1&amp;distmat=1&amp;version=1.86&amp;grade=4">0</a>)</span>
+</li>
+<li>
+    <a href="http://cpants.cpanauthors.org/release/OALDERS/WWW-Mechanize-1.86"><i class="fa fa-fw fa-line-chart black"></i>Kwalitee</a>
+</li>
+
+<li><i class="fa fa-fw fa-gavel black"></i>License: perl_5</li>
+
+
+
+
+    <li class="nav-header">Activity</li>
+    <li><div class="activity-graph">
+  <img src="/activity?res=month&amp;distribution=WWW-Mechanize" width="170" height="22" />
+  <div align="right"><small class="comment">24 month</small></div>
+</div>
+</li>
+    <li class="nav-header">Tools</li>
+<li>
+    <i class="fa fa-file fa-fw black"></i><a href="http://perlybook.org/?source=WWW::Mechanize&amp;book_selection=&amp;target=mobi" title="Download POD of this module in .mobi format for Kindle.">MOBI</a> | <a href="http://perlybook.org/?source=WWW::Mechanize&amp;book_selection=&amp;target=epub" title="Download POD of this module in .epub format for E-book readers.">EPUB</a></li>
+
+<li>
+    <a itemprop="downloadUrl" href="https://cpan.metacpan.org/authors/id/O/OA/OALDERS/WWW-Mechanize-1.86.tar.gz">
+    <i class="fa fa-download fa-fw black"></i>Download (<span itemprop="fileSize" >168.29Kb</span>)</a>
+    
+    <span class="invisible" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+      <span itemprop="price">0</span>
+    </span>
+    
+</li>
+<li>
+    <a href="https://explorer.metacpan.org/?url=/module/OALDERS/WWW-Mechanize-1.86/lib%2FWWW%2FMechanize.pm">
+    <i class="fa fa-list-alt fa-fw black"></i>MetaCPAN Explorer
+    </a>
+</li>
+<li>
+    <a href="https://cpanratings.perl.org/rate/?distribution=WWW-Mechanize">
+    <i class="fa fa-star fa-fw black"></i>Rate this distribution
+    </a>
+</li>
+<li>
+  <a href="/permission/distribution/WWW-Mechanize">
+    <i class="fa fa-key fa-fw black"></i>Upload permissions
+  </a>
+</li>
+<li>
+    <a href="/feed/distribution/WWW-Mechanize">
+    <i class="fa fa-rss-square fa-fw black"></i>Subscribe to distribution
+    </a>
+</li>
+<li>
+    <button class="btn btn-link" data-toggle="modal" data-target="#install-instructions-dialog">
+      <i class="fa fa-terminal fa-fw black"></i>Install Instructions
+    </button>
+</li>
+<li>
+    <form action="/search">
+        <input type="hidden" name="q" value="dist:WWW-Mechanize">
+        <input type="search" name="q" placeholder="Search distribution" style="width: 153px" class="form-control tool-bar-form">
+        <input type="submit" style="display: none">
+    </form>
+</li>
+<li>
+    <form action="https://grep.metacpan.org/search">
+        <input type="hidden" name="qd" value="WWW-Mechanize">
+        <input type="hidden" name="source" value="metacpan">
+         <input type="search" name="q" placeholder="grep distribution" style="width: 153px" class="form-control tool-bar-form">
+         <input type="submit" style="display: none">
+     </form>
+</li>
+<li>
+    <select onchange="document.location.href='/module/'+this.value" class="form-control tool-bar-form">
+        <option>Jump to version</option>
+    <option value="OALDERS/WWW-Mechanize-1.85/lib/WWW/Mechanize.pm">1.85 (OALDERS on 2017-06-28)</option>
+
+    <option value="OALDERS/WWW-Mechanize-1.84/lib/WWW/Mechanize.pm">1.84 (OALDERS on 2017-03-07)</option>
+
+    <option value="OALDERS/WWW-Mechanize-1.83/lib/WWW/Mechanize.pm">1.83 (OALDERS on 2016-10-14)</option>
+
+    <option value="OALDERS/WWW-Mechanize-1.82/lib/WWW/Mechanize.pm">1.82 (OALDERS on 2016-10-07)</option>
+
+    <option value="OALDERS/WWW-Mechanize-1.81/lib/WWW/Mechanize.pm">1.81 (OALDERS on 2016-10-06)</option>
+
+    <option value="OALDERS/WWW-Mechanize-1.80/lib/WWW/Mechanize.pm">1.80 (OALDERS on 2016-09-25)</option>
+
+    <option value="OALDERS/WWW-Mechanize-1.79/lib/WWW/Mechanize.pm">1.79 (OALDERS on 2016-09-17)</option>
+
+    <option value="OALDERS/WWW-Mechanize-1.78/lib/WWW/Mechanize.pm">1.78 (OALDERS on 2016-08-08)</option>
+
+    <option value="OALDERS/WWW-Mechanize-1.77-TRIAL/lib/WWW/Mechanize.pm">1.77 DEV (OALDERS on 2016-08-05)</option>
+
+    <option value="OALDERS/WWW-Mechanize-1.76-TRIAL/lib/WWW/Mechanize.pm">1.76 DEV (OALDERS on 2016-07-29)</option>
+
+    <option value="ETHER/WWW-Mechanize-1.75/lib/WWW/Mechanize.pm">1.75 (ETHER on 2015-06-03)</option>
+
+    <option value="MSTROUT/WWW-Mechanize-1.72_02/lib/WWW/Mechanize.pm">1.72_02 DEV (MSTROUT on 2012-04-27)</option>
+
+    <option value="MSTROUT/WWW-Mechanize-1.72_01/lib/WWW/Mechanize.pm">1.72_01 DEV (MSTROUT on 2012-03-24)</option>
+
+    <option value="JESSE/WWW-Mechanize-1.72/lib/WWW/Mechanize.pm">1.72 (JESSE on 2012-02-02)</option>
+
+    <option value="JESSE/WWW-Mechanize-1.71/lib/WWW/Mechanize.pm">1.71 (JESSE on 2011-11-25)</option>
+
+    <option value="JESSE/WWW-Mechanize-1.70/lib/WWW/Mechanize.pm">1.70 (JESSE on 2011-08-26)</option>
+
+    <option value="JASONMAY/WWW-Mechanize-1.69_01/lib/WWW/Mechanize.pm">1.69_01 DEV (JASONMAY on 2011-08-01)</option>
+
+    <option value="JESSE/WWW-Mechanize-1.68/lib/WWW/Mechanize.pm">1.68 (JESSE on 2011-04-21)</option>
+
+    <option value="JESSE/WWW-Mechanize-1.67_01/lib/WWW/Mechanize.pm">1.67_01 DEV (JESSE on 2011-04-07)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.66/lib/WWW/Mechanize.pm">1.66 (PETDANCE on 2010-09-10)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.64/lib/WWW/Mechanize.pm">1.64 (PETDANCE on 2010-07-01)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.62/lib/WWW/Mechanize.pm">1.62 (PETDANCE on 2010-04-11)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.60/lib/WWW/Mechanize.pm">1.60 (PETDANCE on 2009-08-17)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.58/lib/WWW/Mechanize.pm">1.58 (PETDANCE on 2009-07-14)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.56/lib/WWW/Mechanize.pm">1.56 (PETDANCE on 2009-07-10)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.55_01/lib/WWW/Mechanize.pm">1.55_01 DEV (PETDANCE on 2009-07-06)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.54/lib/WWW/Mechanize.pm">1.54 (PETDANCE on 2009-01-12)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.52/lib/WWW/Mechanize.pm">1.52 (PETDANCE on 2008-11-25)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.50/lib/WWW/Mechanize.pm">1.50 (PETDANCE on 2008-10-27)</option>
+
+<optgroup label="BackPAN"></optgroup>
+
+    <option value="ETHER/WWW-Mechanize-1.74/lib/WWW/Mechanize.pm">1.74 (ETHER on 2015-01-24)
+    </option>
+
+    <option value="ETHER/WWW-Mechanize-1.73/lib/WWW/Mechanize.pm">1.73 (ETHER on 2013-08-24)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.51_03/lib/WWW/Mechanize.pm">1.51_03 DEV (PETDANCE on 2008-11-20)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.51_02/lib/WWW/Mechanize.pm">1.51_02 DEV (PETDANCE on 2008-11-18)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.51_01/lib/WWW/Mechanize.pm">1.51_01 DEV (PETDANCE on 2008-11-06)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.49_01/lib/WWW/Mechanize.pm">1.49_01 DEV (PETDANCE on 2008-09-28)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.34/lib/WWW/Mechanize.pm">1.34 (PETDANCE on 2007-12-10)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.32/lib/WWW/Mechanize.pm">1.32 (PETDANCE on 2007-10-30)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.31_02/lib/WWW/Mechanize.pm">1.31_02 DEV (PETDANCE on 2007-10-25)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.31_01/lib/WWW/Mechanize.pm">1.31_01 DEV (PETDANCE on 2007-09-18)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.30/lib/WWW/Mechanize.pm">1.30 (PETDANCE on 2007-05-25)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.29_01/lib/WWW/Mechanize.pm">1.29_01 DEV (PETDANCE on 2007-05-22)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.26/lib/WWW/Mechanize.pm">1.26 (PETDANCE on 2007-05-16)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.24/lib/WWW/Mechanize.pm">1.24 (PETDANCE on 2007-05-11)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.22/lib/WWW/Mechanize.pm">1.22 (PETDANCE on 2007-03-02)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.21_04/lib/WWW/Mechanize.pm">1.21_04 DEV (PETDANCE on 2006-10-08)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.21_03/lib/WWW/Mechanize.pm">1.21_03 DEV (PETDANCE on 2006-10-07)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.21_02/lib/WWW/Mechanize.pm">1.21_02 DEV (PETDANCE on 2006-10-04)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.21_01/lib/WWW/Mechanize.pm">1.21_01 DEV (PETDANCE on 2006-09-18)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.20/lib/WWW/Mechanize.pm">1.20 (PETDANCE on 2006-08-19)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.19_02/lib/WWW/Mechanize.pm">1.19_02 DEV (PETDANCE on 2006-08-08)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.18/lib/WWW/Mechanize.pm">1.18 (PETDANCE on 2006-02-02)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.17_01/lib/WWW/Mechanize.pm">1.17_01 DEV (PETDANCE on 2006-01-12)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.16/lib/WWW/Mechanize.pm">1.16 (PETDANCE on 2005-10-28)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.14/lib/WWW/Mechanize.pm">1.14 (PETDANCE on 2005-08-30)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.13_01/lib/WWW/Mechanize.pm">1.13_01 DEV (PETDANCE on 2005-04-12)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.12/lib/WWW/Mechanize.pm">1.12 (PETDANCE on 2005-02-25)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.11_02/lib/WWW/Mechanize.pm">1.11_02 DEV (PETDANCE on 2005-02-22)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.11_01/lib/WWW/Mechanize.pm">1.11_01 DEV (PETDANCE on 2005-02-14)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.10/lib/WWW/Mechanize.pm">1.10 (PETDANCE on 2005-02-02)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.08/lib/WWW/Mechanize.pm">1.08 (PETDANCE on 2004-12-24)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.06/lib/WWW/Mechanize.pm">1.06 (PETDANCE on 2004-12-08)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.05_04/lib/WWW/Mechanize.pm">1.05_04 DEV (PETDANCE on 2004-11-06)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.05_03/lib/WWW/Mechanize.pm">1.05_03 DEV (PETDANCE on 2004-11-01)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.05_02/lib/WWW/Mechanize.pm">1.05_02 DEV (PETDANCE on 2004-10-02)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.05_01/lib/WWW/Mechanize.pm">1.05_01 DEV (PETDANCE on 2004-10-01)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.04/lib/WWW/Mechanize.pm">1.04 (PETDANCE on 2004-09-16)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.03_02/lib/WWW/Mechanize.pm">1.03_02 DEV (PETDANCE on 2004-08-17)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.03_01/lib/WWW/Mechanize.pm">1.03_01 DEV (PETDANCE on 2004-05-27)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.02/lib/WWW/Mechanize.pm">1.02 (PETDANCE on 2004-04-14)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.00/lib/WWW/Mechanize.pm">1.00 (PETDANCE on 2004-04-10)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.76/lib/WWW/Mechanize.pm">0.76 (PETDANCE on 2004-04-08)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.75_02/lib/WWW/Mechanize.pm">0.75_02 DEV (PETDANCE on 2004-04-05)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.75_01/lib/WWW/Mechanize.pm">0.75_01 DEV (PETDANCE on 2004-03-28)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.74/lib/WWW/Mechanize.pm">0.74 (PETDANCE on 2004-03-23)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.73_03/lib/WWW/Mechanize.pm">0.73_03 DEV (PETDANCE on 2004-03-21)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.73_02/lib/WWW/Mechanize.pm">0.73_02 DEV (PETDANCE on 2004-03-03)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.73_01/lib/WWW/Mechanize.pm">0.73_01 DEV (PETDANCE on 2004-02-29)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.72/lib/WWW/Mechanize.pm">0.72 (PETDANCE on 2004-01-13)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.71_02/lib/WWW/Mechanize.pm">0.71_02 DEV (PETDANCE on 2003-12-22)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.71_01/lib/WWW/Mechanize.pm">0.71_01 DEV (PETDANCE on 2003-12-22)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.70/lib/WWW/Mechanize.pm">0.70 (PETDANCE on 2003-12-01)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.69_01/lib/WWW/Mechanize.pm">0.69_01 DEV (PETDANCE on 2003-11-26)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.66/lib/WWW/Mechanize.pm">0.66 (PETDANCE on 2003-11-13)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.65/lib/WWW/Mechanize.pm">0.65 (PETDANCE on 2003-11-10)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.64/lib/WWW/Mechanize.pm">0.64 (PETDANCE on 2003-10-24)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.63/lib/WWW/Mechanize.pm">0.63 (PETDANCE on 2003-10-13)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.62/lib/WWW/Mechanize.pm">0.62 (PETDANCE on 2003-10-08)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.61/lib/WWW/Mechanize.pm">0.61 (PETDANCE on 2003-10-06)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.60/lib/WWW/Mechanize.pm">0.60 (PETDANCE on 2003-09-23)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.59/lib/WWW/Mechanize.pm">0.59 (PETDANCE on 2003-09-04)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.58/lib/WWW/Mechanize.pm">0.58 (PETDANCE on 2003-08-15)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.57/lib/WWW/Mechanize.pm">0.57 (PETDANCE on 2003-08-01)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.56/lib/WWW/Mechanize.pm">0.56 (PETDANCE on 2003-07-24)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.55/lib/WWW/Mechanize.pm">0.55 (PETDANCE on 2003-07-22)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.54/lib/WWW/Mechanize.pm">0.54 (PETDANCE on 2003-07-20)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.53/lib/WWW/Mechanize.pm">0.53 (PETDANCE on 2003-07-17)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.52/lib/WWW/Mechanize.pm">0.52 (PETDANCE on 2003-07-08)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.51/lib/WWW/Mechanize.pm">0.51 (PETDANCE on 2003-06-30)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.50/lib/WWW/Mechanize.pm">0.50 (PETDANCE on 2003-06-24)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.49/lib/WWW/Mechanize.pm">0.49 (PETDANCE on 2003-06-23)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.48/lib/WWW/Mechanize.pm">0.48 (PETDANCE on 2003-06-22)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.47/lib/WWW/Mechanize.pm">0.47 (PETDANCE on 2003-06-22)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.46/lib/WWW/Mechanize.pm">0.46 (PETDANCE on 2003-06-20)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.45/lib/WWW/Mechanize.pm">0.45 (PETDANCE on 2003-06-17)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.44/lib/WWW/Mechanize.pm">0.44 (PETDANCE on 2003-06-05)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.43/lib/WWW/Mechanize.pm">0.43 (PETDANCE on 2003-05-29)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.42/lib/WWW/Mechanize.pm">0.42 (PETDANCE on 2003-05-27)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.41/lib/WWW/Mechanize.pm">0.41 (PETDANCE on 2003-05-23)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.40/lib/WWW/Mechanize.pm">0.40 (PETDANCE on 2003-04-20)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.39/lib/WWW/Mechanize.pm">0.39 (PETDANCE on 2003-04-02)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.38/lib/WWW/Mechanize.pm">0.38 (PETDANCE on 2003-03-25)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.37/lib/WWW/Mechanize.pm">0.37 (PETDANCE on 2003-03-04)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.36/lib/WWW/Mechanize.pm">0.36 (PETDANCE on 2003-02-04)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.35/lib/WWW/Mechanize.pm">0.35 (PETDANCE on 2003-01-22)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.33/lib/WWW/Mechanize.pm">0.33 (PETDANCE on 2003-01-16)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.32/lib/WWW/Mechanize.pm">0.32 (PETDANCE on 2002-10-24)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.31/lib/WWW/Mechanize.pm">0.31 (PETDANCE on 2002-09-13)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.30/lib/WWW/Mechanize.pm">0.30 (PETDANCE on 2002-09-10)
+    </option>
+
+
+    </select>
+</li>
+<li>
+    <select name="release" onchange="document.location.href='/diff/file/?target=OALDERS/WWW-Mechanize-1.86/lib%2FWWW%2FMechanize.pm&amp;source=' + encodeURIComponent(this.value)" class="form-control tool-bar-form">
+        <option>Diff with version</option>
+    <option value="OALDERS/WWW-Mechanize-1.85/lib/WWW/Mechanize.pm">1.85 (OALDERS on 2017-06-28)</option>
+
+    <option value="OALDERS/WWW-Mechanize-1.84/lib/WWW/Mechanize.pm">1.84 (OALDERS on 2017-03-07)</option>
+
+    <option value="OALDERS/WWW-Mechanize-1.83/lib/WWW/Mechanize.pm">1.83 (OALDERS on 2016-10-14)</option>
+
+    <option value="OALDERS/WWW-Mechanize-1.82/lib/WWW/Mechanize.pm">1.82 (OALDERS on 2016-10-07)</option>
+
+    <option value="OALDERS/WWW-Mechanize-1.81/lib/WWW/Mechanize.pm">1.81 (OALDERS on 2016-10-06)</option>
+
+    <option value="OALDERS/WWW-Mechanize-1.80/lib/WWW/Mechanize.pm">1.80 (OALDERS on 2016-09-25)</option>
+
+    <option value="OALDERS/WWW-Mechanize-1.79/lib/WWW/Mechanize.pm">1.79 (OALDERS on 2016-09-17)</option>
+
+    <option value="OALDERS/WWW-Mechanize-1.78/lib/WWW/Mechanize.pm">1.78 (OALDERS on 2016-08-08)</option>
+
+    <option value="OALDERS/WWW-Mechanize-1.77-TRIAL/lib/WWW/Mechanize.pm">1.77 DEV (OALDERS on 2016-08-05)</option>
+
+    <option value="OALDERS/WWW-Mechanize-1.76-TRIAL/lib/WWW/Mechanize.pm">1.76 DEV (OALDERS on 2016-07-29)</option>
+
+    <option value="ETHER/WWW-Mechanize-1.75/lib/WWW/Mechanize.pm">1.75 (ETHER on 2015-06-03)</option>
+
+    <option value="MSTROUT/WWW-Mechanize-1.72_02/lib/WWW/Mechanize.pm">1.72_02 DEV (MSTROUT on 2012-04-27)</option>
+
+    <option value="MSTROUT/WWW-Mechanize-1.72_01/lib/WWW/Mechanize.pm">1.72_01 DEV (MSTROUT on 2012-03-24)</option>
+
+    <option value="JESSE/WWW-Mechanize-1.72/lib/WWW/Mechanize.pm">1.72 (JESSE on 2012-02-02)</option>
+
+    <option value="JESSE/WWW-Mechanize-1.71/lib/WWW/Mechanize.pm">1.71 (JESSE on 2011-11-25)</option>
+
+    <option value="JESSE/WWW-Mechanize-1.70/lib/WWW/Mechanize.pm">1.70 (JESSE on 2011-08-26)</option>
+
+    <option value="JASONMAY/WWW-Mechanize-1.69_01/lib/WWW/Mechanize.pm">1.69_01 DEV (JASONMAY on 2011-08-01)</option>
+
+    <option value="JESSE/WWW-Mechanize-1.68/lib/WWW/Mechanize.pm">1.68 (JESSE on 2011-04-21)</option>
+
+    <option value="JESSE/WWW-Mechanize-1.67_01/lib/WWW/Mechanize.pm">1.67_01 DEV (JESSE on 2011-04-07)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.66/lib/WWW/Mechanize.pm">1.66 (PETDANCE on 2010-09-10)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.64/lib/WWW/Mechanize.pm">1.64 (PETDANCE on 2010-07-01)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.62/lib/WWW/Mechanize.pm">1.62 (PETDANCE on 2010-04-11)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.60/lib/WWW/Mechanize.pm">1.60 (PETDANCE on 2009-08-17)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.58/lib/WWW/Mechanize.pm">1.58 (PETDANCE on 2009-07-14)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.56/lib/WWW/Mechanize.pm">1.56 (PETDANCE on 2009-07-10)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.55_01/lib/WWW/Mechanize.pm">1.55_01 DEV (PETDANCE on 2009-07-06)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.54/lib/WWW/Mechanize.pm">1.54 (PETDANCE on 2009-01-12)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.52/lib/WWW/Mechanize.pm">1.52 (PETDANCE on 2008-11-25)</option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.50/lib/WWW/Mechanize.pm">1.50 (PETDANCE on 2008-10-27)</option>
+
+<optgroup label="BackPAN"></optgroup>
+
+    <option value="ETHER/WWW-Mechanize-1.74/lib/WWW/Mechanize.pm">1.74 (ETHER on 2015-01-24)
+    </option>
+
+    <option value="ETHER/WWW-Mechanize-1.73/lib/WWW/Mechanize.pm">1.73 (ETHER on 2013-08-24)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.51_03/lib/WWW/Mechanize.pm">1.51_03 DEV (PETDANCE on 2008-11-20)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.51_02/lib/WWW/Mechanize.pm">1.51_02 DEV (PETDANCE on 2008-11-18)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.51_01/lib/WWW/Mechanize.pm">1.51_01 DEV (PETDANCE on 2008-11-06)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.49_01/lib/WWW/Mechanize.pm">1.49_01 DEV (PETDANCE on 2008-09-28)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.34/lib/WWW/Mechanize.pm">1.34 (PETDANCE on 2007-12-10)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.32/lib/WWW/Mechanize.pm">1.32 (PETDANCE on 2007-10-30)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.31_02/lib/WWW/Mechanize.pm">1.31_02 DEV (PETDANCE on 2007-10-25)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.31_01/lib/WWW/Mechanize.pm">1.31_01 DEV (PETDANCE on 2007-09-18)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.30/lib/WWW/Mechanize.pm">1.30 (PETDANCE on 2007-05-25)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.29_01/lib/WWW/Mechanize.pm">1.29_01 DEV (PETDANCE on 2007-05-22)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.26/lib/WWW/Mechanize.pm">1.26 (PETDANCE on 2007-05-16)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.24/lib/WWW/Mechanize.pm">1.24 (PETDANCE on 2007-05-11)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.22/lib/WWW/Mechanize.pm">1.22 (PETDANCE on 2007-03-02)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.21_04/lib/WWW/Mechanize.pm">1.21_04 DEV (PETDANCE on 2006-10-08)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.21_03/lib/WWW/Mechanize.pm">1.21_03 DEV (PETDANCE on 2006-10-07)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.21_02/lib/WWW/Mechanize.pm">1.21_02 DEV (PETDANCE on 2006-10-04)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.21_01/lib/WWW/Mechanize.pm">1.21_01 DEV (PETDANCE on 2006-09-18)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.20/lib/WWW/Mechanize.pm">1.20 (PETDANCE on 2006-08-19)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.19_02/lib/WWW/Mechanize.pm">1.19_02 DEV (PETDANCE on 2006-08-08)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.18/lib/WWW/Mechanize.pm">1.18 (PETDANCE on 2006-02-02)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.17_01/lib/WWW/Mechanize.pm">1.17_01 DEV (PETDANCE on 2006-01-12)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.16/lib/WWW/Mechanize.pm">1.16 (PETDANCE on 2005-10-28)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.14/lib/WWW/Mechanize.pm">1.14 (PETDANCE on 2005-08-30)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.13_01/lib/WWW/Mechanize.pm">1.13_01 DEV (PETDANCE on 2005-04-12)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.12/lib/WWW/Mechanize.pm">1.12 (PETDANCE on 2005-02-25)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.11_02/lib/WWW/Mechanize.pm">1.11_02 DEV (PETDANCE on 2005-02-22)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.11_01/lib/WWW/Mechanize.pm">1.11_01 DEV (PETDANCE on 2005-02-14)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.10/lib/WWW/Mechanize.pm">1.10 (PETDANCE on 2005-02-02)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.08/lib/WWW/Mechanize.pm">1.08 (PETDANCE on 2004-12-24)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.06/lib/WWW/Mechanize.pm">1.06 (PETDANCE on 2004-12-08)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.05_04/lib/WWW/Mechanize.pm">1.05_04 DEV (PETDANCE on 2004-11-06)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.05_03/lib/WWW/Mechanize.pm">1.05_03 DEV (PETDANCE on 2004-11-01)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.05_02/lib/WWW/Mechanize.pm">1.05_02 DEV (PETDANCE on 2004-10-02)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.05_01/lib/WWW/Mechanize.pm">1.05_01 DEV (PETDANCE on 2004-10-01)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.04/lib/WWW/Mechanize.pm">1.04 (PETDANCE on 2004-09-16)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.03_02/lib/WWW/Mechanize.pm">1.03_02 DEV (PETDANCE on 2004-08-17)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.03_01/lib/WWW/Mechanize.pm">1.03_01 DEV (PETDANCE on 2004-05-27)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.02/lib/WWW/Mechanize.pm">1.02 (PETDANCE on 2004-04-14)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-1.00/lib/WWW/Mechanize.pm">1.00 (PETDANCE on 2004-04-10)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.76/lib/WWW/Mechanize.pm">0.76 (PETDANCE on 2004-04-08)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.75_02/lib/WWW/Mechanize.pm">0.75_02 DEV (PETDANCE on 2004-04-05)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.75_01/lib/WWW/Mechanize.pm">0.75_01 DEV (PETDANCE on 2004-03-28)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.74/lib/WWW/Mechanize.pm">0.74 (PETDANCE on 2004-03-23)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.73_03/lib/WWW/Mechanize.pm">0.73_03 DEV (PETDANCE on 2004-03-21)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.73_02/lib/WWW/Mechanize.pm">0.73_02 DEV (PETDANCE on 2004-03-03)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.73_01/lib/WWW/Mechanize.pm">0.73_01 DEV (PETDANCE on 2004-02-29)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.72/lib/WWW/Mechanize.pm">0.72 (PETDANCE on 2004-01-13)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.71_02/lib/WWW/Mechanize.pm">0.71_02 DEV (PETDANCE on 2003-12-22)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.71_01/lib/WWW/Mechanize.pm">0.71_01 DEV (PETDANCE on 2003-12-22)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.70/lib/WWW/Mechanize.pm">0.70 (PETDANCE on 2003-12-01)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.69_01/lib/WWW/Mechanize.pm">0.69_01 DEV (PETDANCE on 2003-11-26)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.66/lib/WWW/Mechanize.pm">0.66 (PETDANCE on 2003-11-13)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.65/lib/WWW/Mechanize.pm">0.65 (PETDANCE on 2003-11-10)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.64/lib/WWW/Mechanize.pm">0.64 (PETDANCE on 2003-10-24)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.63/lib/WWW/Mechanize.pm">0.63 (PETDANCE on 2003-10-13)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.62/lib/WWW/Mechanize.pm">0.62 (PETDANCE on 2003-10-08)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.61/lib/WWW/Mechanize.pm">0.61 (PETDANCE on 2003-10-06)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.60/lib/WWW/Mechanize.pm">0.60 (PETDANCE on 2003-09-23)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.59/lib/WWW/Mechanize.pm">0.59 (PETDANCE on 2003-09-04)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.58/lib/WWW/Mechanize.pm">0.58 (PETDANCE on 2003-08-15)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.57/lib/WWW/Mechanize.pm">0.57 (PETDANCE on 2003-08-01)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.56/lib/WWW/Mechanize.pm">0.56 (PETDANCE on 2003-07-24)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.55/lib/WWW/Mechanize.pm">0.55 (PETDANCE on 2003-07-22)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.54/lib/WWW/Mechanize.pm">0.54 (PETDANCE on 2003-07-20)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.53/lib/WWW/Mechanize.pm">0.53 (PETDANCE on 2003-07-17)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.52/lib/WWW/Mechanize.pm">0.52 (PETDANCE on 2003-07-08)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.51/lib/WWW/Mechanize.pm">0.51 (PETDANCE on 2003-06-30)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.50/lib/WWW/Mechanize.pm">0.50 (PETDANCE on 2003-06-24)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.49/lib/WWW/Mechanize.pm">0.49 (PETDANCE on 2003-06-23)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.48/lib/WWW/Mechanize.pm">0.48 (PETDANCE on 2003-06-22)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.47/lib/WWW/Mechanize.pm">0.47 (PETDANCE on 2003-06-22)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.46/lib/WWW/Mechanize.pm">0.46 (PETDANCE on 2003-06-20)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.45/lib/WWW/Mechanize.pm">0.45 (PETDANCE on 2003-06-17)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.44/lib/WWW/Mechanize.pm">0.44 (PETDANCE on 2003-06-05)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.43/lib/WWW/Mechanize.pm">0.43 (PETDANCE on 2003-05-29)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.42/lib/WWW/Mechanize.pm">0.42 (PETDANCE on 2003-05-27)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.41/lib/WWW/Mechanize.pm">0.41 (PETDANCE on 2003-05-23)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.40/lib/WWW/Mechanize.pm">0.40 (PETDANCE on 2003-04-20)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.39/lib/WWW/Mechanize.pm">0.39 (PETDANCE on 2003-04-02)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.38/lib/WWW/Mechanize.pm">0.38 (PETDANCE on 2003-03-25)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.37/lib/WWW/Mechanize.pm">0.37 (PETDANCE on 2003-03-04)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.36/lib/WWW/Mechanize.pm">0.36 (PETDANCE on 2003-02-04)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.35/lib/WWW/Mechanize.pm">0.35 (PETDANCE on 2003-01-22)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.33/lib/WWW/Mechanize.pm">0.33 (PETDANCE on 2003-01-16)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.32/lib/WWW/Mechanize.pm">0.32 (PETDANCE on 2002-10-24)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.31/lib/WWW/Mechanize.pm">0.31 (PETDANCE on 2002-09-13)
+    </option>
+
+    <option value="PETDANCE/WWW-Mechanize-0.30/lib/WWW/Mechanize.pm">0.30 (PETDANCE on 2002-09-10)
+    </option>
+
+
+    </select>
+</li>
+
+<li class="nav-header">Permalinks</li>
+<li>
+    <a href="/pod/release/OALDERS/WWW-Mechanize-1.86/lib/WWW/Mechanize.pm">This version</a>
+</li>
+<li>
+    <a itemprop="url" href="/pod/WWW::Mechanize">Latest version</a>
+</li>
+<li class="nav-header">S.C.O</li>
+<li>
+    <a href="https://search.cpan.org/~OALDERS/WWW-Mechanize-1.86/lib/WWW/Mechanize.pm" rel="nofollow">This version</a>
+</li>
+<li>
+    <a href="https://search.cpan.org/perldoc?WWW::Mechanize" rel="nofollow">Latest version</a>
+</li>
+
+  </ul>
+
+  <button id="right-panel-toggle" class="btn-link" onclick="togglePanel('right'); return false;"><span class="panel-hidden">Show</span><span class="panel-visible">Hide</span> Right Panel</button>
+  <div id="right-panel" class="pull-right">
+  <div class="box-right">
+  <!-- For plussers -->
+
+<div class="plussers hidden-phone">
+<div><b>++ed by:</b></div>
+
+
+
+
+<a class="display-all" href="/author/GRANTM"><img src="https://secure.gravatar.com/avatar/a98bf13a721e1874004fd1c5f9619420?s=20&amp;d=https%3A%2F%2Fsecure.gravatar.com%2Favatar%2Fa98bf13a721e1874004fd1c5f9619420%3Fs%3D20%26d%3Didenticon" title="GRANTM" alt="GRANTM"></a>
+
+
+
+<a class="display-all" href="/author/RRWO"><img src="https://secure.gravatar.com/avatar/4a5274bc5d690ee3d619f044778771a7?s=20&amp;d=identicon" title="RRWO" alt="RRWO"></a>
+
+
+
+<a class="display-all" href="/author/PETDANCE"><img src="https://secure.gravatar.com/avatar/8077a0584e451732420d43f5d0b3bd31?s=20&amp;d=identicon" title="PETDANCE" alt="PETDANCE"></a>
+
+
+
+<a class="display-all" href="/author/IVANWILLS"><img src="https://secure.gravatar.com/avatar/c668586858d59a94f3eb761903175f27?s=20&amp;d=identicon" title="IVANWILLS" alt="IVANWILLS"></a>
+
+
+
+<a class="display-all" href="/author/AYOUNG"><img src="https://secure.gravatar.com/avatar/d7a80273ea139cbfbe3d9ee7f178b62b?s=20" title="AYOUNG" alt="AYOUNG"></a>
+
+
+
+<!-- Display counts of plussers-->
+<p>
+
+<a href="/release/WWW-Mechanize/plussers">47 PAUSE users</a><br>
+
+
+25 non-PAUSE users.
+
+</p>
+</div>
+
+
+<div class="author-pic">
+<a href="/author/OALDERS">
+  <img src="https://secure.gravatar.com/avatar/2604e8e32ad239561168c295bc58be72?s=130&amp;d=https%3A%2F%2Fsecure.gravatar.com%2Favatar%2F7a66ba9f5f4af93dd55fcdc0e69c0b55%3Fs%3D130%26d%3Didenticon">
+</a>
+
+<strong>
+  <a rel="author" href="/author/OALDERS">OALDERS</a>
+</strong>
+<span title="">Olaf Alders 🐫</span>
+
+
+  <a rel="author" href="https://plus.google.com/101343648117957767403?rel=author" target="_blank" title="googleplus - 101343648117957767403" style="display: none;">
+    <img src="/static/images/profile/googleplus.png" width=16 height=16 alt="googleplus">
+  </a>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+  
+
+<div id="contributors">
+    <div class="contributors-header">and 36 contributors</div>
+    <div align="right">
+        <button class="btn-link"
+            onclick="$(this).hide(); $('#contributors ul').slideDown(); return false;"
+        >show them</button>
+    </div>
+    <ul class="nav nav-list box-right" style="display: none">
+    
+        <li class="contributor">
+        Andy Lester &lt;andy at petdance.com&gt;
+        
+        </li>
+    
+        <li class="contributor" data-cpan-author="CHORNY" data-contrib-email="alexchorny@gmail.com">
+        <a href="/author/CHORNY"
+           class="cpan-author"
+        >        <img class="gravatar" width="20" height="20" src="https://secure.gravatar.com/avatar/9982a6d902348d1982dd60235724e63c?s=20&amp;d=identicon" />        Alexandr Ciornii</a>
+        
+        </li>
+    
+        <li class="contributor" data-cpan-author="PETDANCE" data-contrib-email="andy@petdance.com">
+        <a href="/author/PETDANCE"
+           class="cpan-author"
+        >        <img class="gravatar" width="20" height="20" src="https://secure.gravatar.com/avatar/8077a0584e451732420d43f5d0b3bd31?s=20&amp;d=identicon" />        Andy Lester</a>
+        
+        </li>
+    
+        <li class="contributor" data-cpan-author="CAPOEIRAB" data-contrib-email="capoeirab@cpan.org">
+        <a href="/author/CAPOEIRAB"
+           class="cpan-author"
+        >        <img class="gravatar" width="20" height="20" src="https://lh6.googleusercontent.com/-ovVVzPhKHts/ThDOFpfafrI/AAAAAAAABJ8/wg_ESbaYwsY/w708-h706-no/IMG_0110.png" />        Chase Whitener</a>
+        
+        </li>
+    
+        <li class="contributor" data-cpan-author="DAKKAR" data-contrib-email="dakkar@thenautilus.net">
+        <a href="/author/DAKKAR"
+           class="cpan-author"
+        >        <img class="gravatar" width="20" height="20" src="https://secure.gravatar.com/avatar/c71b315eed7c63ff94c42b1b3e8dbad1?s=20&amp;d=https%3A%2F%2Fsecure.gravatar.com%2Favatar%2F5d949b503c35e74c26ef8ecf649b886b%3Fs%3D20%26d%3Didenticon" />        dakkar</a>
+        
+        </li>
+    
+        <li class="contributor" data-cpan-author="DDOYLE" data-contrib-email="dave.s.doyle@gmail.com">
+        <a href="/author/DDOYLE"
+           class="cpan-author"
+        >        <img class="gravatar" width="20" height="20" src="https://secure.gravatar.com/avatar/03bcb5671cf0205376dea2851e20e235?s=20&amp;d=identicon" />        Dave Doyle</a>
+        
+        </li>
+    
+        <li class="contributor" data-cpan-author="BIGPRESH" data-contrib-email="davidp@preshweb.co.uk">
+        <a href="/author/BIGPRESH"
+           class="cpan-author"
+        >        <img class="gravatar" width="20" height="20" src="https://secure.gravatar.com/avatar/e77a97b7bec8a0dc42fee8ecb640cb25?s=20&amp;d=https%3A%2F%2Fsecure.gravatar.com%2Favatar%2F66f9cc184db11ee7810f4bc2d029ec17%3Fs%3D20%26d%3Didenticon" />        David Precious</a>
+        
+        </li>
+    
+        <li class="contributor" data-contrib-email="dsteinbrunner@pobox.com">
+        David Steinbrunner
+        
+        </li>
+    
+        <li class="contributor" data-contrib-email="nawglan@gmail.com">
+        Desmond Daignault
+        
+        </li>
+    
+        <li class="contributor" data-contrib-email="eda@waniasset.com">
+        Ed Avis
+        
+        </li>
+    
+        <li class="contributor" data-contrib-email="flavio@polettix.it">
+        Flavio Poletti
+        
+        </li>
+    
+        <li class="contributor" data-contrib-email="fsfs@debian.org">
+        Florian Schlichting
+        
+        </li>
+    
+        <li class="contributor" data-cpan-author="SZABGAB" data-contrib-email="szabgab@gmail.com">
+        <a href="/author/SZABGAB"
+           class="cpan-author"
+        >        <img class="gravatar" width="20" height="20" src="https://secure.gravatar.com/avatar/19821078d3ecf265b2af009548e98ef3?s=20&amp;d=https%3A%2F%2Fsecure.gravatar.com%2Favatar%2F4e0a6fe2acda5df6095514e7d6329e91%3Fs%3D20%26d%3Didenticon" />        Gabor Szabo</a>
+        
+        </li>
+    
+        <li class="contributor" data-contrib-email="gjtunley@gmail.com">
+        Gareth Tunley
+        
+        </li>
+    
+        <li class="contributor" data-contrib-email="k.grigor@yahoo.com">
+        Grigor Karavardanyan
+        
+        </li>
+    
+        <li class="contributor" data-contrib-email="jasonmay@bestpractical.com">
+        Jason May
+        
+        </li>
+    
+        <li class="contributor" data-contrib-email="jesse@bestpractical.com">
+        Jesse Vincent
+        
+        </li>
+    
+        <li class="contributor" data-cpan-author="ETHER" data-contrib-email="ether@cpan.org">
+        <a href="/author/ETHER"
+           class="cpan-author"
+        >        <img class="gravatar" width="20" height="20" src="https://secure.gravatar.com/avatar/bdc5cd06679e732e262f6c1b450a0237?s=20&amp;d=identicon" />        Karen Etheridge</a>
+        
+        </li>
+    
+        <li class="contributor" data-cpan-author="SKUD" data-contrib-email="skud@infotrope.net">
+        <a href="/author/SKUD"
+           class="cpan-author"
+        >        <img class="gravatar" width="20" height="20" src="https://secure.gravatar.com/avatar/9f4935a4d6113a1964f221ce27b77366?s=20&amp;d=identicon" />        Kirrily 'Skud' Robert</a>
+        
+        </li>
+    
+        <li class="contributor" data-contrib-email="kivancyazan@gmail.com">
+        Kivanc Yazan
+        
+        </li>
+    
+        <li class="contributor" data-cpan-author="DAXIM" data-contrib-email="daxim@cpan.org">
+        <a href="/author/DAXIM"
+           class="cpan-author"
+        >        <img class="gravatar" width="20" height="20" src="https://secure.gravatar.com/avatar/5ce828f20abb195ef5d971205ee36c27?s=20&amp;d=identicon" />        Lars Dɪᴇᴄᴋᴏᴡ 迪拉斯</a>
+        
+        </li>
+    
+        <li class="contributor" data-contrib-email="mark@summersault.com">
+        Mark Stosberg
+        
+        </li>
+    
+        <li class="contributor" data-cpan-author="FANY" data-contrib-email="martin@sluka.de">
+        <a href="/author/FANY"
+           class="cpan-author"
+        >        <img class="gravatar" width="20" height="20" src="https://secure.gravatar.com/avatar/7bc0edaceda1cb0a5b56b844a5b406c2?s=20&amp;d=identicon" />        Martin H. Sluka</a>
+        
+        </li>
+    
+        <li class="contributor" data-contrib-email="mst@shadowcat.co.uk">
+        Matt S Trout
+        
+        </li>
+    
+        <li class="contributor" data-cpan-author="CORION" data-contrib-email="corion@cpan.org">
+        <a href="/author/CORION"
+           class="cpan-author"
+        >        <img class="gravatar" width="20" height="20" src="https://secure.gravatar.com/avatar/2e0676f3fb16744ca17e4b882d45eb1d?s=20&amp;d=identicon" />        Max Maischein</a>
+        
+        </li>
+    
+        <li class="contributor" data-cpan-author="NEILB" data-contrib-email="neil@bowers.com">
+        <a href="/author/NEILB"
+           class="cpan-author"
+        >        <img class="gravatar" width="20" height="20" src="https://secure.gravatar.com/avatar/22736d57a4db0d014f97dfa85597865c?s=20&amp;d=identicon" />        Neil Bowers</a>
+        
+        </li>
+    
+        <li class="contributor" data-contrib-email="olaf@wundersolutions.com">
+        Olaf Alders
+        
+        </li>
+    
+        <li class="contributor" data-cpan-author="RJBS" data-contrib-email="rjbs@cpan.org">
+        <a href="/author/RJBS"
+           class="cpan-author"
+        >        <img class="gravatar" width="20" height="20" src="https://secure.gravatar.com/avatar/cec6b9b88295ead26c65f8747a76561b?s=20&amp;d=identicon" />        Ricardo Signes</a>
+        
+        </li>
+    
+        <li class="contributor" data-contrib-email="schuyler@velargo.com">
+        Schuyler Langdon
+        
+        </li>
+    
+        <li class="contributor" data-contrib-email="sromanov-dev@yandex.ru">
+        Sergey Romanov
+        
+        </li>
+    
+        <li class="contributor" data-cpan-author="SIMBABQUE" data-contrib-email="simbabque@cpan.org">
+        <a href="/author/SIMBABQUE"
+           class="cpan-author"
+        >        <img class="gravatar" width="20" height="20" src="https://i.stack.imgur.com/4ZPmj.png" />        simbabque</a>
+        
+        </li>
+    
+        <li class="contributor" data-contrib-email="stephen@scaffidi.net">
+        Steve Scaffidi
+        
+        </li>
+    
+        <li class="contributor" data-contrib-email="sunnavy@bestpractical.com">
+        sunnavy
+        
+        </li>
+    
+        <li class="contributor" data-contrib-email="varadinsky@yahoo.com">
+        Varadinsky
+        
+        </li>
+    
+        <li class="contributor" data-cpan-author="SCOP" data-contrib-email="ville.skytta@iki.fi">
+        <a href="/author/SCOP"
+           class="cpan-author"
+        >        <img class="gravatar" width="20" height="20" src="https://secure.gravatar.com/avatar/4623589f12ed201b060c2075fd9c0920?s=20&amp;d=identicon" />        Ville Skyttä</a>
+        
+        </li>
+    
+        <li class="contributor" data-cpan-author="ZEFRAM" data-contrib-email="zefram@fysh.org">
+        <a href="/author/ZEFRAM"
+           class="cpan-author"
+        >        <img class="gravatar" width="20" height="20" src="https://secure.gravatar.com/avatar/aab343bc3a4424dcb7f913920242f051?s=20&amp;d=identicon" />        Zefram</a>
+        
+        </li>
+    
+    </ul>
+</div>
+
+
+
+  </div>
+  <ul class="nav-list box-right hidden-phone dependencies">
+    <li class="nav-header">Dependencies</li>
+    <li><a href="/pod/base" title="base" class="ellipsis">base</a></li>
+    <li><a href="/pod/Carp" title="Carp" class="ellipsis">Carp</a></li>
+    <li><a href="/pod/Getopt::Long" title="Getopt::Long" class="ellipsis">Getopt::Long</a></li>
+    <li><a href="/pod/HTML::Form" title="HTML::Form" class="ellipsis">HTML::Form</a></li>
+    <li><a href="/pod/HTML::HeadParser" title="HTML::HeadParser" class="ellipsis">HTML::HeadParser</a></li>
+    <li><a href="/pod/HTML::TokeParser" title="HTML::TokeParser" class="ellipsis">HTML::TokeParser</a></li>
+    <li><a href="/pod/HTML::TreeBuilder" title="HTML::TreeBuilder" class="ellipsis">HTML::TreeBuilder</a></li>
+    <li><a href="/pod/HTTP::Cookies" title="HTTP::Cookies" class="ellipsis">HTTP::Cookies</a></li>
+    <li><a href="/pod/HTTP::Request" title="HTTP::Request" class="ellipsis">HTTP::Request</a></li>
+    <li><a href="/pod/HTTP::Request::Common" title="HTTP::Request::Common" class="ellipsis">HTTP::Request::Common</a></li>
+    <li><a href="/pod/LWP::UserAgent" title="LWP::UserAgent" class="ellipsis">LWP::UserAgent</a></li>
+    <li><a href="/pod/Pod::Usage" title="Pod::Usage" class="ellipsis">Pod::Usage</a></li>
+    <li><a href="/pod/Scalar::Util" title="Scalar::Util" class="ellipsis">Scalar::Util</a></li>
+    <li><a href="/pod/strict" title="strict" class="ellipsis">strict</a></li>
+    <li><a href="/pod/Tie::RefHash" title="Tie::RefHash" class="ellipsis">Tie::RefHash</a></li>
+    <li><a href="/pod/URI::file" title="URI::file" class="ellipsis">URI::file</a></li>
+    <li><a href="/pod/URI::URL" title="URI::URL" class="ellipsis">URI::URL</a></li>
+    <li><a href="/pod/warnings" title="warnings" class="ellipsis">warnings</a></li>
+    <li><hr /></li>
+    <li>
+        <a href="https://deps.cpantesters.org/?module=WWW::Mechanize">
+        <i class="fa fa-retweet fa-fw black"></i>CPAN Testers List</a>
+    </li>
+    <li>        <a href="/requires/module/WWW::Mechanize?sort=[[2,1]]">        <i class="fa fa-share fa-fw black"></i>Reverse dependencies</a>
+    </li>
+        <li>
+            <button class="btn btn-link" data-toggle="modal" data-target="#dependencies-graph">
+            <i class="fa fa-asterisk fa-fw black"></i>Dependency graph</button>
+        </li>
+</ul>
+<div class="modal fade" id="dependencies-graph" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="border:none">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="text-center">WWW-Mechanize-1.86</h3>
+            </div>
+
+            <iframe width=720 height=620 frameborder=0></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#dependencies-graph').on('show.bs.modal', function() {
+        var iframe = $("iframe", this);
+        var base   = "//widgets.stratopan.com/wheel";
+        var src    = base + "?q=WWW-Mechanize-1.86";
+        iframe.attr("src") || iframe.attr("src", src);
+        if (!iframe) return e.preventDefault();
+    });
+</script>
+
+
+  </div>
+  <a name="___pod"></a>
+  <div class="pod content anchors">
+  
+  <ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#VERSION">VERSION</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#IMPORTANT-LINKS">IMPORTANT LINKS</a></li>
+  <li><a href="#CONSTRUCTOR-AND-STARTUP">CONSTRUCTOR AND STARTUP</a>
+    <ul>
+      <li><a href="#new()">new()</a></li>
+      <li><a href="#$mech-%3Eagent_alias(-$alias-)">$mech-&gt;agent_alias( $alias )</a></li>
+      <li><a href="#known_agent_aliases()">known_agent_aliases()</a></li>
+    </ul>
+  </li>
+  <li><a href="#PAGE-FETCHING-METHODS">PAGE-FETCHING METHODS</a>
+    <ul>
+      <li><a href="#$mech-%3Eget(-$uri-)">$mech-&gt;get( $uri )</a></li>
+      <li><a href="#$mech-%3Eput(-$uri,-content-=%3E-$content-)">$mech-&gt;put( $uri, content =&gt; $content )</a></li>
+      <li><a href="#$mech-%3Ereload()">$mech-&gt;reload()</a></li>
+      <li><a href="#$mech-%3Eback()">$mech-&gt;back()</a></li>
+      <li><a href="#$mech-%3Ehistory_count()">$mech-&gt;history_count()</a></li>
+      <li><a href="#$mech-%3Ehistory($n)">$mech-&gt;history($n)</a></li>
+    </ul>
+  </li>
+  <li><a href="#STATUS-METHODS">STATUS METHODS</a>
+    <ul>
+      <li><a href="#$mech-%3Esuccess()">$mech-&gt;success()</a></li>
+      <li><a href="#$mech-%3Euri()">$mech-&gt;uri()</a></li>
+      <li><a href="#$mech-%3Eresponse()-/-$mech-%3Eres()">$mech-&gt;response() / $mech-&gt;res()</a></li>
+      <li><a href="#$mech-%3Estatus()">$mech-&gt;status()</a></li>
+      <li><a href="#$mech-%3Ect()-/-$mech-%3Econtent_type()">$mech-&gt;ct() / $mech-&gt;content_type()</a></li>
+      <li><a href="#$mech-%3Ebase()">$mech-&gt;base()</a></li>
+      <li><a href="#$mech-%3Eforms()">$mech-&gt;forms()</a></li>
+      <li><a href="#$mech-%3Ecurrent_form()">$mech-&gt;current_form()</a></li>
+      <li><a href="#$mech-%3Elinks()">$mech-&gt;links()</a></li>
+      <li><a href="#$mech-%3Eis_html()">$mech-&gt;is_html()</a></li>
+      <li><a href="#$mech-%3Etitle()">$mech-&gt;title()</a></li>
+    </ul>
+  </li>
+  <li><a href="#CONTENT-HANDLING-METHODS">CONTENT-HANDLING METHODS</a>
+    <ul>
+      <li><a href="#$mech-%3Econtent(...)">$mech-&gt;content(...)</a></li>
+      <li><a href="#$mech-%3Etext()">$mech-&gt;text()</a></li>
+    </ul>
+  </li>
+  <li><a href="#LINK-METHODS">LINK METHODS</a>
+    <ul>
+      <li><a href="#$mech-%3Elinks()1">$mech-&gt;links()</a></li>
+      <li><a href="#$mech-%3Efollow_link(...)">$mech-&gt;follow_link(...)</a></li>
+      <li><a href="#$mech-%3Efind_link(-...-)">$mech-&gt;find_link( ... )</a></li>
+      <li><a href="#$mech-%3Efind_all_links(-...-)">$mech-&gt;find_all_links( ... )</a></li>
+      <li><a href="#$mech-%3Efind_all_inputs(-...-criteria-...-)">$mech-&gt;find_all_inputs( ... criteria ... )</a></li>
+      <li><a href="#$mech-%3Efind_all_submits(-...-criteria-...-)">$mech-&gt;find_all_submits( ... criteria ... )</a></li>
+    </ul>
+  </li>
+  <li><a href="#IMAGE-METHODS">IMAGE METHODS</a>
+    <ul>
+      <li><a href="#$mech-%3Eimages">$mech-&gt;images</a></li>
+      <li><a href="#$mech-%3Efind_image()">$mech-&gt;find_image()</a></li>
+      <li><a href="#$mech-%3Efind_all_images(-...-)">$mech-&gt;find_all_images( ... )</a></li>
+    </ul>
+  </li>
+  <li><a href="#FORM-METHODS">FORM METHODS</a>
+    <ul>
+      <li><a href="#$mech-%3Eforms">$mech-&gt;forms</a></li>
+      <li><a href="#$mech-%3Eform_number($number)">$mech-&gt;form_number($number)</a></li>
+      <li><a href="#$mech-%3Eform_name(-$name-)">$mech-&gt;form_name( $name )</a></li>
+      <li><a href="#$mech-%3Eform_id(-$name-)">$mech-&gt;form_id( $name )</a></li>
+      <li><a href="#$mech-%3Eall_forms_with_fields(-@fields-)">$mech-&gt;all_forms_with_fields( @fields )</a></li>
+      <li><a href="#$mech-%3Eform_with_fields(-@fields-)">$mech-&gt;form_with_fields( @fields )</a></li>
+      <li><a href="#$mech-%3Eall_forms_with(-$attr1-=%3E-$value1,-$attr2-=%3E-$value2,-...-)">$mech-&gt;all_forms_with( $attr1 =&gt; $value1, $attr2 =&gt; $value2, ... )</a></li>
+      <li><a href="#$mech-%3Eform_with(-$attr1-=%3E-$value1,-$attr2-=%3E-$value2,-...-)">$mech-&gt;form_with( $attr1 =&gt; $value1, $attr2 =&gt; $value2, ... )</a></li>
+    </ul>
+  </li>
+  <li><a href="#FIELD-METHODS">FIELD METHODS</a>
+    <ul>
+      <li><a href="#$mech-%3Efield(-$name,-$value,-$number-)">$mech-&gt;field( $name, $value, $number )</a></li>
+      <li><a href="#$mech-%3Efield(-$name,-%5C@values,-$number-)">$mech-&gt;field( $name, \@values, $number )</a></li>
+      <li><a href="#$mech-%3Eselect($name,-$value)">$mech-&gt;select($name, $value)</a></li>
+      <li><a href="#$mech-%3Eselect($name,-%5C@values)">$mech-&gt;select($name, \@values)</a></li>
+      <li><a href="#$mech-%3Eset_fields(-$name-=%3E-$value-...-)">$mech-&gt;set_fields( $name =&gt; $value ... )</a></li>
+      <li><a href="#$mech-%3Eset_visible(-@criteria-)">$mech-&gt;set_visible( @criteria )</a></li>
+      <li><a href="#$mech-%3Etick(-$name,-$value-%5B,-$set%5D-)">$mech-&gt;tick( $name, $value [, $set] )</a></li>
+      <li><a href="#$mech-%3Euntick($name,-$value)">$mech-&gt;untick($name, $value)</a></li>
+      <li><a href="#$mech-%3Evalue(-$name-%5B,-$number%5D-)">$mech-&gt;value( $name [, $number] )</a></li>
+      <li><a href="#$mech-%3Eclick(-$button-%5B,-$x,-$y%5D-)">$mech-&gt;click( $button [, $x, $y] )</a></li>
+      <li><a href="#$mech-%3Eclick_button(-...-)">$mech-&gt;click_button( ... )</a></li>
+      <li><a href="#$mech-%3Esubmit()">$mech-&gt;submit()</a></li>
+      <li><a href="#$mech-%3Esubmit_form(-...-)">$mech-&gt;submit_form( ... )</a></li>
+    </ul>
+  </li>
+  <li><a href="#MISCELLANEOUS-METHODS">MISCELLANEOUS METHODS</a>
+    <ul>
+      <li><a href="#$mech-%3Eadd_header(-name-=%3E-$value-%5B,-name-=%3E-$value...-%5D-)">$mech-&gt;add_header( name =&gt; $value [, name =&gt; $value... ] )</a></li>
+      <li><a href="#$mech-%3Edelete_header(-name-%5B,-name-...-%5D-)">$mech-&gt;delete_header( name [, name ... ] )</a></li>
+      <li><a href="#$mech-%3Equiet(true/false)">$mech-&gt;quiet(true/false)</a></li>
+      <li><a href="#$mech-%3Estack_depth(-$max_depth-)">$mech-&gt;stack_depth( $max_depth )</a></li>
+      <li><a href="#$mech-%3Esave_content(-$filename,-%25opts-)">$mech-&gt;save_content( $filename, %opts )</a></li>
+      <li><a href="#$mech-%3Edump_headers(-%5B$fh%5D-)">$mech-&gt;dump_headers( [$fh] )</a></li>
+      <li><a href="#$mech-%3Edump_links(-%5B%5B$fh%5D,-$absolute%5D-)">$mech-&gt;dump_links( [[$fh], $absolute] )</a></li>
+      <li><a href="#$mech-%3Edump_images(-%5B%5B$fh%5D,-$absolute%5D-)">$mech-&gt;dump_images( [[$fh], $absolute] )</a></li>
+      <li><a href="#$mech-%3Edump_forms(-%5B$fh%5D-)">$mech-&gt;dump_forms( [$fh] )</a></li>
+      <li><a href="#$mech-%3Edump_text(-%5B$fh%5D-)">$mech-&gt;dump_text( [$fh] )</a></li>
+    </ul>
+  </li>
+  <li><a href="#OVERRIDDEN-LWP::UserAgent-METHODS">OVERRIDDEN LWP::UserAgent METHODS</a>
+    <ul>
+      <li><a href="#$mech-%3Eclone()">$mech-&gt;clone()</a></li>
+      <li><a href="#$mech-%3Eredirect_ok()">$mech-&gt;redirect_ok()</a></li>
+      <li><a href="#$mech-%3Erequest(-$request-%5B,-$arg-%5B,-$size%5D%5D)">$mech-&gt;request( $request [, $arg [, $size]])</a></li>
+      <li><a href="#$mech-%3Eupdate_html(-$html-)">$mech-&gt;update_html( $html )</a></li>
+      <li><a href="#$mech-%3Ecredentials(-$username,-$password-)">$mech-&gt;credentials( $username, $password )</a></li>
+      <li><a href="#$mech-%3Eget_basic_credentials(-$realm,-$uri,-$isproxy-)">$mech-&gt;get_basic_credentials( $realm, $uri, $isproxy )</a></li>
+      <li><a href="#$mech-%3Eclear_credentials()">$mech-&gt;clear_credentials()</a></li>
+    </ul>
+  </li>
+  <li><a href="#INHERITED-UNCHANGED-LWP::UserAgent-METHODS">INHERITED UNCHANGED LWP::UserAgent METHODS</a>
+    <ul>
+      <li><a href="#$mech-%3Ehead()">$mech-&gt;head()</a></li>
+      <li><a href="#$mech-%3Epost()">$mech-&gt;post()</a></li>
+      <li><a href="#$mech-%3Emirror()">$mech-&gt;mirror()</a></li>
+      <li><a href="#$mech-%3Esimple_request()">$mech-&gt;simple_request()</a></li>
+      <li><a href="#$mech-%3Eis_protocol_supported()">$mech-&gt;is_protocol_supported()</a></li>
+      <li><a href="#$mech-%3Eprepare_request()">$mech-&gt;prepare_request()</a></li>
+      <li><a href="#$mech-%3Eprogress()">$mech-&gt;progress()</a></li>
+    </ul>
+  </li>
+  <li><a href="#INTERNAL-ONLY-METHODS">INTERNAL-ONLY METHODS</a>
+    <ul>
+      <li><a href="#$mech-%3E_update_page($request,-$response)">$mech-&gt;_update_page($request, $response)</a></li>
+      <li><a href="#$mech-%3E_modify_request(-$req-)">$mech-&gt;_modify_request( $req )</a></li>
+      <li><a href="#$mech-%3E_make_request()">$mech-&gt;_make_request()</a></li>
+      <li><a href="#$mech-%3E_reset_page()">$mech-&gt;_reset_page()</a></li>
+      <li><a href="#$mech-%3E_extract_links()">$mech-&gt;_extract_links()</a></li>
+      <li><a href="#$mech-%3E_push_page_stack()">$mech-&gt;_push_page_stack()</a></li>
+      <li><a href="#warn(-@messages-)">warn( @messages )</a></li>
+      <li><a href="#die(-@messages-)">die( @messages )</a></li>
+    </ul>
+  </li>
+  <li><a href="#WWW::MECHANIZE&#39;S-GIT-REPOSITORY">WWW::MECHANIZE&#39;S GIT REPOSITORY</a></li>
+  <li><a href="#OTHER-DOCUMENTATION">OTHER DOCUMENTATION</a>
+    <ul>
+      <li><a href="#Spidering-Hacks,-by-Kevin-Hemenway-and-Tara-Calishain">Spidering Hacks, by Kevin Hemenway and Tara Calishain</a></li>
+    </ul>
+  </li>
+  <li><a href="#ONLINE-RESOURCES-AND-SUPPORT">ONLINE RESOURCES AND SUPPORT</a></li>
+  <li><a href="#ARTICLES-ABOUT-WWW::MECHANIZE">ARTICLES ABOUT WWW::MECHANIZE</a>
+    <ul>
+      <li><a href="#Other-modules-that-use-Mechanize">Other modules that use Mechanize</a></li>
+    </ul>
+  </li>
+  <li><a href="#ACKNOWLEDGEMENTS">ACKNOWLEDGEMENTS</a></li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>WWW::Mechanize - Handy web browsing in a Perl object</p>
+
+<h1 id="VERSION">VERSION</h1>
+
+<p>version 1.86</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p>WWW::Mechanize supports performing a sequence of page fetches including following links and submitting forms. Each fetched page is parsed and its links and forms are extracted. A link or a form can be selected, form fields can be filled and the next page can be fetched. Mech also stores a history of the URLs you&#39;ve visited, which can be queried and revisited.</p>
+
+<pre><code>    use WWW::Mechanize;
+    my $mech = WWW::Mechanize-&gt;new();
+
+    $mech-&gt;get( $url );
+
+    $mech-&gt;follow_link( n =&gt; 3 );
+    $mech-&gt;follow_link( text_regex =&gt; qr/download this/i );
+    $mech-&gt;follow_link( url =&gt; &#39;http://host.com/index.html&#39; );
+
+    $mech-&gt;submit_form(
+        form_number =&gt; 3,
+        fields      =&gt; {
+            username    =&gt; &#39;mungo&#39;,
+            password    =&gt; &#39;lost-and-alone&#39;,
+        }
+    );
+
+    $mech-&gt;submit_form(
+        form_name =&gt; &#39;search&#39;,
+        fields    =&gt; { query  =&gt; &#39;pot of gold&#39;, },
+        button    =&gt; &#39;Search Now&#39;
+    );</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p><code>WWW::Mechanize</code>, or Mech for short, is a Perl module for stateful programmatic web browsing, used for automating interaction with websites.</p>
+
+<p>Features include:</p>
+
+<ul>
+
+<li><p>All HTTP methods</p>
+
+</li>
+<li><p>High-level hyperlink and HTML form support, without having to parse HTML yourself</p>
+
+</li>
+<li><p>SSL support</p>
+
+</li>
+<li><p>Automatic cookies</p>
+
+</li>
+<li><p>Custom HTTP headers</p>
+
+</li>
+<li><p>Automatic handling of redirections</p>
+
+</li>
+<li><p>Proxies</p>
+
+</li>
+<li><p>HTTP authentication</p>
+
+</li>
+</ul>
+
+<p>Mech is well suited for use in testing web applications. If you use one of the Test::*, like <a href="/pod/Test::HTML::Lint">Test::HTML::Lint</a> modules, you can check the fetched content and use that as input to a test call.</p>
+
+<pre><code>    use Test::More;
+    like( $mech-&gt;content(), qr/$expected/, &quot;Got expected content&quot; );</code></pre>
+
+<p>Each page fetch stores its URL in a history stack which you can traverse.</p>
+
+<pre><code>    $mech-&gt;back();</code></pre>
+
+<p>If you want finer control over your page fetching, you can use these methods. <code>follow_link</code> and <code>submit_form</code> are just high level wrappers around them.</p>
+
+<pre><code>    $mech-&gt;find_link( n =&gt; $number );
+    $mech-&gt;form_number( $number );
+    $mech-&gt;form_name( $name );
+    $mech-&gt;field( $name, $value );
+    $mech-&gt;set_fields( %field_values );
+    $mech-&gt;set_visible( @criteria );
+    $mech-&gt;click( $button );</code></pre>
+
+<p><a href="/pod/WWW::Mechanize">WWW::Mechanize</a> is a proper subclass of <a href="/pod/LWP::UserAgent">LWP::UserAgent</a> and you can also use any of <a href="/pod/LWP::UserAgent">LWP::UserAgent</a>&#39;s methods.</p>
+
+<pre><code>    $mech-&gt;add_header($name =&gt; $value);</code></pre>
+
+<p>Please note that Mech does NOT support JavaScript, you need additional software for that. Please check <a href="/pod/distribution/WWW-Mechanize/lib/WWW/Mechanize/FAQ.pod#JavaScript">&quot;JavaScript&quot; in WWW::Mechanize::FAQ</a> for more.</p>
+
+<h1 id="IMPORTANT-LINKS"><a id="IMPORTANT"></a>IMPORTANT LINKS</h1>
+
+<ul>
+
+<li><p><a href="https://github.com/libwww-perl/WWW-Mechanize/issues">https://github.com/libwww-perl/WWW-Mechanize/issues</a></p>
+
+<p>The queue for bugs &amp; enhancements in WWW::Mechanize and Test::WWW::Mechanize. Please note that the queue at <a href="http://rt.cpan.org">http://rt.cpan.org</a> is no longer maintained.</p>
+
+</li>
+<li><p><a href="http://search.cpan.org/dist/WWW-Mechanize/">http://search.cpan.org/dist/WWW-Mechanize/</a></p>
+
+<p>The CPAN documentation page for Mechanize.</p>
+
+</li>
+<li><p><a href="http://search.cpan.org/dist/WWW-Mechanize/lib/WWW/Mechanize/FAQ.pod">http://search.cpan.org/dist/WWW-Mechanize/lib/WWW/Mechanize/FAQ.pod</a></p>
+
+<p>Frequently asked questions. Make sure you read here FIRST.</p>
+
+</li>
+</ul>
+
+<h1 id="CONSTRUCTOR-AND-STARTUP"><a id="CONSTRUCTOR"></a>CONSTRUCTOR AND STARTUP</h1>
+
+<h2 id="new()"><a id="new"></a>new()</h2>
+
+<p>Creates and returns a new WWW::Mechanize object, hereafter referred to as the &quot;agent&quot;.</p>
+
+<pre><code>    my $mech = WWW::Mechanize-&gt;new()</code></pre>
+
+<p>The constructor for WWW::Mechanize overrides two of the parms to the LWP::UserAgent constructor:</p>
+
+<pre><code>    agent =&gt; &#39;WWW-Mechanize/#.##&#39;
+    cookie_jar =&gt; {}    # an empty, memory-only HTTP::Cookies object</code></pre>
+
+<p>You can override these overrides by passing parms to the constructor, as in:</p>
+
+<pre><code>    my $mech = WWW::Mechanize-&gt;new( agent =&gt; &#39;wonderbot 1.01&#39; );</code></pre>
+
+<p>If you want none of the overhead of a cookie jar, or don&#39;t want your bot accepting cookies, you have to explicitly disallow it, like so:</p>
+
+<pre><code>    my $mech = WWW::Mechanize-&gt;new( cookie_jar =&gt; undef );</code></pre>
+
+<p>Here are the parms that WWW::Mechanize recognizes. These do not include parms that <a href="/pod/LWP::UserAgent">LWP::UserAgent</a> recognizes.</p>
+
+<ul>
+
+<li><p><code>autocheck =&gt; [0|1]</code></p>
+
+<p>Checks each request made to see if it was successful. This saves you the trouble of manually checking yourself. Any errors found are errors, not warnings.</p>
+
+<p>The default value is ON, unless it&#39;s being subclassed, in which case it is OFF. This means that standalone <a href="/pod/WWW::Mechanize">WWW::Mechanize</a> instances have autocheck turned on, which is protective for the vast majority of Mech users who don&#39;t bother checking the return value of get() and post() and can&#39;t figure why their code fails. However, if <a href="/pod/WWW::Mechanize">WWW::Mechanize</a> is subclassed, such as for <a href="/pod/Test::WWW::Mechanize">Test::WWW::Mechanize</a> or <a href="/pod/Test::WWW::Mechanize::Catalyst">Test::WWW::Mechanize::Catalyst</a>, this may not be an appropriate default, so it&#39;s off.</p>
+
+</li>
+<li><p><code>noproxy =&gt; [0|1]</code></p>
+
+<p>Turn off the automatic call to the <a href="/pod/LWP::UserAgent">LWP::UserAgent</a> <code>env_proxy</code> function.</p>
+
+<p>This needs to be explicitly turned off if you&#39;re using <a href="/pod/Crypt::SSLeay">Crypt::SSLeay</a> to access a https site via a proxy server. Note: you still need to set your HTTPS_PROXY environment variable as appropriate.</p>
+
+</li>
+<li><p><code>onwarn =&gt; \&amp;func</code></p>
+
+<p>Reference to a <code>warn</code>-compatible function, such as <code><a href="/pod/Carp">Carp</a>::carp</code>, that is called when a warning needs to be shown.</p>
+
+<p>If this is set to <code>undef</code>, no warnings will ever be shown. However, it&#39;s probably better to use the <code>quiet</code> method to control that behavior.</p>
+
+<p>If this value is not passed, Mech uses <code>Carp::carp</code> if <a href="/pod/Carp">Carp</a> is installed, or <code>CORE::warn</code> if not.</p>
+
+</li>
+<li><p><code>onerror =&gt; \&amp;func</code></p>
+
+<p>Reference to a <code>die</code>-compatible function, such as <code><a href="/pod/Carp">Carp</a>::croak</code>, that is called when there&#39;s a fatal error.</p>
+
+<p>If this is set to <code>undef</code>, no errors will ever be shown.</p>
+
+<p>If this value is not passed, Mech uses <code>Carp::croak</code> if <a href="/pod/Carp">Carp</a> is installed, or <code>CORE::die</code> if not.</p>
+
+</li>
+<li><p><code>quiet =&gt; [0|1]</code></p>
+
+<p>Don&#39;t complain on warnings. Setting <code>quiet =&gt; 1</code> is the same as calling <code>$mech-&gt;quiet(1)</code>. Default is off.</p>
+
+</li>
+<li><p><code>stack_depth =&gt; $value</code></p>
+
+<p>Sets the depth of the page stack that keeps track of all the downloaded pages. Default is effectively infinite stack size. If the stack is eating up your memory, then set this to a smaller number, say 5 or 10. Setting this to zero means Mech will keep no history.</p>
+
+</li>
+</ul>
+
+<p>To support forms, WWW::Mechanize&#39;s constructor pushes POST on to the agent&#39;s <code>requests_redirectable</code> list (see also <a href="/pod/LWP::UserAgent">LWP::UserAgent</a>.)</p>
+
+<h2 id="$mech-&gt;agent_alias(-$alias-)"><a id="mech--agent_alias---alias"></a>$mech-&gt;agent_alias( $alias )</h2>
+
+<p>Sets the user agent string to the expanded version from a table of actual user strings. <i>$alias</i> can be one of the following:</p>
+
+<ul>
+
+<li><p>Windows IE 6</p>
+
+</li>
+<li><p>Windows Mozilla</p>
+
+</li>
+<li><p>Mac Safari</p>
+
+</li>
+<li><p>Mac Mozilla</p>
+
+</li>
+<li><p>Linux Mozilla</p>
+
+</li>
+<li><p>Linux Konqueror</p>
+
+</li>
+</ul>
+
+<p>then it will be replaced with a more interesting one. For instance,</p>
+
+<pre><code>    $mech-&gt;agent_alias( &#39;Windows IE 6&#39; );</code></pre>
+
+<p>sets your User-Agent to</p>
+
+<pre><code>    Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)</code></pre>
+
+<p>The list of valid aliases can be returned from <code>known_agent_aliases()</code>. The current list is:</p>
+
+<ul>
+
+<li><p>Windows IE 6</p>
+
+</li>
+<li><p>Windows Mozilla</p>
+
+</li>
+<li><p>Mac Safari</p>
+
+</li>
+<li><p>Mac Mozilla</p>
+
+</li>
+<li><p>Linux Mozilla</p>
+
+</li>
+<li><p>Linux Konqueror</p>
+
+</li>
+</ul>
+
+<h2 id="known_agent_aliases()"><a id="known_agent_aliases"></a>known_agent_aliases()</h2>
+
+<p>Returns a list of all the agent aliases that Mech knows about.</p>
+
+<h1 id="PAGE-FETCHING-METHODS"><a id="PAGE"></a>PAGE-FETCHING METHODS</h1>
+
+<h2 id="$mech-&gt;get(-$uri-)"><a id="mech--get---uri"></a>$mech-&gt;get( $uri )</h2>
+
+<p>Given a URL/URI, fetches it. Returns an <a href="/pod/HTTP::Response">HTTP::Response</a> object. <i>$uri</i> can be a well-formed URL string, a <a href="/pod/URI">URI</a> object, or a <a href="/pod/WWW::Mechanize::Link">WWW::Mechanize::Link</a> object.</p>
+
+<p>The results are stored internally in the agent object, but you don&#39;t know that. Just use the accessors listed below. Poking at the internals is deprecated and subject to change in the future.</p>
+
+<p><code>get()</code> is a well-behaved overloaded version of the method in <a href="/pod/LWP::UserAgent">LWP::UserAgent</a>. This lets you do things like</p>
+
+<pre><code>    $mech-&gt;get( $uri, &#39;:content_file&#39; =&gt; $tempfile );</code></pre>
+
+<p>and you can rest assured that the parms will get filtered down appropriately.</p>
+
+<p><b>NOTE:</b> Because <code>:content_file</code> causes the page contents to be stored in a file instead of the response object, some Mech functions that expect it to be there won&#39;t work as expected. Use with caution.</p>
+
+<h2 id="$mech-&gt;put(-$uri,-content-=&gt;-$content-)"><a id="mech--put---uri--content----content"></a>$mech-&gt;put( $uri, content =&gt; $content )</h2>
+
+<p>PUTs <i>$content</i> to $uri. Returns an <a href="/pod/HTTP::Response">HTTP::Response</a> object. <i>$uri</i> can be a well-formed URI string, a <a href="/pod/URI">URI</a> object, or a <a href="/pod/WWW::Mechanize::Link">WWW::Mechanize::Link</a> object.</p>
+
+<h2 id="$mech-&gt;reload()"><a id="mech--reload"></a>$mech-&gt;reload()</h2>
+
+<p>Acts like the reload button in a browser: repeats the current request. The history (as per the <a href="#back">&quot;back&quot;</a> method) is not altered.</p>
+
+<p>Returns the <a href="/pod/HTTP::Response">HTTP::Response</a> object from the reload, or <code>undef</code> if there&#39;s no current request.</p>
+
+<h2 id="$mech-&gt;back()"><a id="mech--back"></a>$mech-&gt;back()</h2>
+
+<p>The equivalent of hitting the &quot;back&quot; button in a browser. Returns to the previous page. Won&#39;t go back past the first page. (Really, what would it do if it could?)</p>
+
+<p>Returns true if it could go back, or false if not.</p>
+
+<h2 id="$mech-&gt;history_count()"><a id="mech--history_count"></a>$mech-&gt;history_count()</h2>
+
+<p>This returns the number of items in the browser history. This number <i>does</i> include the most recently made request.</p>
+
+<h2 id="$mech-&gt;history($n)"><a id="mech--history-n"></a>$mech-&gt;history($n)</h2>
+
+<p>This returns the <i>n</i>th item in history. The 0th item is the most recent request and response, which would be acted on by methods like <code>find_link()</code>. The 1th item is the state you&#39;d return to if you called <code>back()</code>.</p>
+
+<p>The maximum useful value for <code>$n</code> is <code>$mech-&gt;history_count - 1</code>. Requests beyond that bound will return <code>undef</code>.</p>
+
+<p>History items are returned as hash references, in the form:</p>
+
+<pre><code>  { req =&gt; $http_request, res =&gt; $http_response }</code></pre>
+
+<h1 id="STATUS-METHODS"><a id="STATUS"></a>STATUS METHODS</h1>
+
+<h2 id="$mech-&gt;success()"><a id="mech--success"></a>$mech-&gt;success()</h2>
+
+<p>Returns a boolean telling whether the last request was successful. If there hasn&#39;t been an operation yet, returns false.</p>
+
+<p>This is a convenience function that wraps <code>$mech-&gt;res-&gt;is_success</code>.</p>
+
+<h2 id="$mech-&gt;uri()"><a id="mech--uri"></a>$mech-&gt;uri()</h2>
+
+<p>Returns the current URI as a <a href="/pod/URI">URI</a> object. This object stringifies to the URI itself.</p>
+
+<h2 id="$mech-&gt;response()-/-$mech-&gt;res()"><a id="mech--response-----mech--res"></a>$mech-&gt;response() / $mech-&gt;res()</h2>
+
+<p>Return the current response as an <a href="/pod/HTTP::Response">HTTP::Response</a> object.</p>
+
+<p>Synonym for <code>$mech-&gt;response()</code></p>
+
+<h2 id="$mech-&gt;status()"><a id="mech--status"></a>$mech-&gt;status()</h2>
+
+<p>Returns the HTTP status code of the response. This is a 3-digit number like 200 for OK, 404 for not found, and so on.</p>
+
+<h2 id="$mech-&gt;ct()-/-$mech-&gt;content_type()"><a id="mech--ct-----mech--content_type"></a>$mech-&gt;ct() / $mech-&gt;content_type()</h2>
+
+<p>Returns the content type of the response.</p>
+
+<h2 id="$mech-&gt;base()"><a id="mech--base"></a>$mech-&gt;base()</h2>
+
+<p>Returns the base URI for the current response</p>
+
+<h2 id="$mech-&gt;forms()"><a id="mech--forms"></a>$mech-&gt;forms()</h2>
+
+<p>When called in a list context, returns a list of the forms found in the last fetched page. In a scalar context, returns a reference to an array with those forms. The forms returned are all <a href="/pod/HTML::Form">HTML::Form</a> objects.</p>
+
+<h2 id="$mech-&gt;current_form()"><a id="mech--current_form"></a>$mech-&gt;current_form()</h2>
+
+<p>Returns the current form as an <a href="/pod/HTML::Form">HTML::Form</a> object.</p>
+
+<h2 id="$mech-&gt;links()"><a id="mech--links"></a>$mech-&gt;links()</h2>
+
+<p>When called in a list context, returns a list of the links found in the last fetched page. In a scalar context it returns a reference to an array with those links. Each link is a <a href="/pod/WWW::Mechanize::Link">WWW::Mechanize::Link</a> object.</p>
+
+<h2 id="$mech-&gt;is_html()"><a id="mech--is_html"></a>$mech-&gt;is_html()</h2>
+
+<p>Returns true/false on whether our content is HTML, according to the HTTP headers.</p>
+
+<h2 id="$mech-&gt;title()"><a id="mech--title"></a>$mech-&gt;title()</h2>
+
+<p>Returns the contents of the <code>&lt;TITLE&gt;</code> tag, as parsed by <a href="/pod/HTML::HeadParser">HTML::HeadParser</a>. Returns undef if the content is not HTML.</p>
+
+<h1 id="CONTENT-HANDLING-METHODS"><a id="CONTENT"></a>CONTENT-HANDLING METHODS</h1>
+
+<h2 id="$mech-&gt;content(...)"><a id="mech--content"></a>$mech-&gt;content(...)</h2>
+
+<p>Returns the content that the mech uses internally for the last page fetched. Ordinarily this is the same as <code>$mech-&gt;response()-&gt;decoded_content()</code>, but this may differ for HTML documents if <a href="#$mech-%3Eupdate_html(-$html-)">update_html</a> is overloaded (in which case the value passed to the base-class implementation of same will be returned), and/or extra named arguments are passed to <i>content()</i>:</p>
+
+<dl>
+
+<dt id="$mech-&gt;content(-format-=&gt;-&#39;text&#39;-)"><a id="mech--content--format----text"></a><i>$mech-&gt;content( format =&gt; &#39;text&#39; )</i></dt>
+<dd>
+
+<p>Returns a text-only version of the page, with all HTML markup stripped. This feature requires <i>HTML::TreeBuilder</i> to be installed, or a fatal error will be thrown. This works only if the contents are HTML.</p>
+
+</dd>
+<dt id="$mech-&gt;content(-base_href-=&gt;-[$base_href|undef]-)"><a id="mech--content--base_href----base_href-undef"></a><i>$mech-&gt;content( base_href =&gt; [$base_href|undef] )</i></dt>
+<dd>
+
+<p>Returns the HTML document, modified to contain a <code>&lt;base href=&quot;$base_href&quot;&gt;</code> mark-up in the header. <i>$base_href</i> is <code>$mech-&gt;base()</code> if not specified. This is handy to pass the HTML to e.g. <a href="/pod/HTML::Display">HTML::Display</a>. This works only if the contents are HTML.</p>
+
+</dd>
+<dt id="$mech-&gt;content(-raw-=&gt;-1-)"><a id="mech--content--raw---1"></a><i>$mech-&gt;content( raw =&gt; 1 )</i></dt>
+<dd>
+
+<p>Returns <code>$self-&gt;response()-&gt;content()</code>, i.e. the raw contents from the response.</p>
+
+</dd>
+<dt id="$mech-&gt;content(-decoded_by_headers-=&gt;-1-)"><a id="mech--content--decoded_by_headers---1"></a><i>$mech-&gt;content( decoded_by_headers =&gt; 1 )</i></dt>
+<dd>
+
+<p>Returns the content after applying all <code>Content-Encoding</code> headers but with not additional mangling.</p>
+
+</dd>
+<dt id="$mech-&gt;content(-charset-=&gt;-$charset-)"><a id="mech--content--charset----charset"></a><i>$mech-&gt;content( charset =&gt; $charset )</i></dt>
+<dd>
+
+<p>Returns <code>$self-&gt;response()-&gt;decoded_content(charset =&gt; $charset)</code> (see <a href="/pod/HTTP::Response">HTTP::Response</a> for details).</p>
+
+</dd>
+</dl>
+
+<p>To preserve backwards compatibility, additional parameters will be ignored unless none of <code>raw | decoded_by_headers | charset</code> is specified and the text is HTML, in which case an error will be triggered.</p>
+
+<h2 id="$mech-&gt;text()"><a id="mech--text"></a>$mech-&gt;text()</h2>
+
+<p>Returns the text of the current HTML content. If the content isn&#39;t HTML, $mech will die.</p>
+
+<p>The text is extracted by parsing the content, and then the extracted text is cached, so don&#39;t worry about performance of calling this repeatedly.</p>
+
+<h1 id="LINK-METHODS"><a id="LINK"></a>LINK METHODS</h1>
+
+<h2 id="$mech-&gt;links()1"><a id="mech--links1"></a>$mech-&gt;links()</h2>
+
+<p>Lists all the links on the current page. Each link is a WWW::Mechanize::Link object. In list context, returns a list of all links. In scalar context, returns an array reference of all links.</p>
+
+<h2 id="$mech-&gt;follow_link(...)"><a id="mech--follow_link"></a>$mech-&gt;follow_link(...)</h2>
+
+<p>Follows a specified link on the page. You specify the match to be found using the same parms that <code><a href="/pod/find_link()">find_link()</a></code> uses.</p>
+
+<p>Here some examples:</p>
+
+<ul>
+
+<li><p>3rd link called &quot;download&quot;</p>
+
+<pre><code>    $mech-&gt;follow_link( text =&gt; &#39;download&#39;, n =&gt; 3 );</code></pre>
+
+</li>
+<li><p>first link where the URL has &quot;download&quot; in it, regardless of case:</p>
+
+<pre><code>    $mech-&gt;follow_link( url_regex =&gt; qr/download/i );</code></pre>
+
+<p>or</p>
+
+<pre><code>    $mech-&gt;follow_link( url_regex =&gt; qr/(?i:download)/ );</code></pre>
+
+</li>
+<li><p>3rd link on the page</p>
+
+<pre><code>    $mech-&gt;follow_link( n =&gt; 3 );</code></pre>
+
+</li>
+<li><p>the link with the url</p>
+
+<pre><code>    $mech-&gt;follow_link( url =&gt; &#39;/other/page&#39; );</code></pre>
+
+<p>or</p>
+
+<pre><code>    $mech-&gt;follow_link( url =&gt; &#39;http://example.com/page&#39; );</code></pre>
+
+</li>
+</ul>
+
+<p>Returns the result of the GET method (an HTTP::Response object) if a link was found. If the page has no links, or the specified link couldn&#39;t be found, returns undef.</p>
+
+<h2 id="$mech-&gt;find_link(-...-)"><a id="mech--find_link"></a>$mech-&gt;find_link( ... )</h2>
+
+<p>Finds a link in the currently fetched page. It returns a <a href="/pod/WWW::Mechanize::Link">WWW::Mechanize::Link</a> object which describes the link. (You&#39;ll probably be most interested in the <code>url()</code> property.) If it fails to find a link it returns undef.</p>
+
+<p>You can take the URL part and pass it to the <code>get()</code> method. If that&#39;s your plan, you might as well use the <code>follow_link()</code> method directly, since it does the <code>get()</code> for you automatically.</p>
+
+<p>Note that <code>&lt;FRAME SRC=&quot;...&quot;&gt;</code> tags are parsed out of the the HTML and treated as links so this method works with them.</p>
+
+<p>You can select which link to find by passing in one or more of these key/value pairs:</p>
+
+<ul>
+
+<li><p><code>text =&gt; &#39;string&#39;,</code> and <code>text_regex =&gt; qr/regex/,</code></p>
+
+<p><code>text</code> matches the text of the link against <i>string</i>, which must be an exact match. To select a link with text that is exactly &quot;download&quot;, use</p>
+
+<pre><code>    $mech-&gt;find_link( text =&gt; &#39;download&#39; );</code></pre>
+
+<p><code>text_regex</code> matches the text of the link against <i>regex</i>. To select a link with text that has &quot;download&quot; anywhere in it, regardless of case, use</p>
+
+<pre><code>    $mech-&gt;find_link( text_regex =&gt; qr/download/i );</code></pre>
+
+<p>Note that the text extracted from the page&#39;s links are trimmed. For example, <code>&lt;a&gt; foo &lt;/a&gt;</code> is stored as &#39;foo&#39;, and searching for leading or trailing spaces will fail.</p>
+
+</li>
+<li><p><code>url =&gt; &#39;string&#39;,</code> and <code>url_regex =&gt; qr/regex/,</code></p>
+
+<p>Matches the URL of the link against <i>string</i> or <i>regex</i>, as appropriate. The URL may be a relative URL, like <i>foo/bar.html</i>, depending on how it&#39;s coded on the page.</p>
+
+</li>
+<li><p><code>url_abs =&gt; string</code> and <code>url_abs_regex =&gt; regex</code></p>
+
+<p>Matches the absolute URL of the link against <i>string</i> or <i>regex</i>, as appropriate. The URL will be an absolute URL, even if it&#39;s relative in the page.</p>
+
+</li>
+<li><p><code>name =&gt; string</code> and <code>name_regex =&gt; regex</code></p>
+
+<p>Matches the name of the link against <i>string</i> or <i>regex</i>, as appropriate.</p>
+
+</li>
+<li><p><code>id =&gt; string</code> and <code>id_regex =&gt; regex</code></p>
+
+<p>Matches the attribute &#39;id&#39; of the link against <i>string</i> or <i>regex</i>, as appropriate.</p>
+
+</li>
+<li><p><code>class =&gt; string</code> and <code>class_regex =&gt; regex</code></p>
+
+<p>Matches the attribute &#39;class&#39; of the link against <i>string</i> or <i>regex</i>, as appropriate.</p>
+
+</li>
+<li><p><code>tag =&gt; string</code> and <code>tag_regex =&gt; regex</code></p>
+
+<p>Matches the tag that the link came from against <i>string</i> or <i>regex</i>, as appropriate. The <code>tag_regex</code> is probably most useful to check for more than one tag, as in:</p>
+
+<pre><code>    $mech-&gt;find_link( tag_regex =&gt; qr/^(a|frame)$/ );</code></pre>
+
+<p>The tags and attributes looked at are defined below, at <a href="#$mech-%3Efind_link()-:-link-format">&quot;$mech-&gt;find_link() : link format&quot;</a>.</p>
+
+</li>
+</ul>
+
+<p>If <code>n</code> is not specified, it defaults to 1. Therefore, if you don&#39;t specify any parms, this method defaults to finding the first link on the page.</p>
+
+<p>Note that you can specify multiple text or URL parameters, which will be ANDed together. For example, to find the first link with text of &quot;News&quot; and with &quot;cnn.com&quot; in the URL, use:</p>
+
+<pre><code>    $mech-&gt;find_link( text =&gt; &#39;News&#39;, url_regex =&gt; qr/cnn\.com/ );</code></pre>
+
+<p>The return value is a reference to an array containing a <a href="/pod/WWW::Mechanize::Link">WWW::Mechanize::Link</a> object for every link in <code>$self-&gt;content</code>.</p>
+
+<p>The links come from the following:</p>
+
+<dl>
+
+<dt id="&lt;a-href=...&gt;"><a id="a-href"></a><code>&lt;a href=...&gt;</code></dt>
+<dd>
+
+</dd>
+<dt id="&lt;area-href=...&gt;"><a id="area-href"></a><code>&lt;area href=...&gt;</code></dt>
+<dd>
+
+</dd>
+<dt id="&lt;frame-src=...&gt;"><a id="frame-src"></a><code>&lt;frame src=...&gt;</code></dt>
+<dd>
+
+</dd>
+<dt id="&lt;iframe-src=...&gt;"><a id="iframe-src"></a><code>&lt;iframe src=...&gt;</code></dt>
+<dd>
+
+</dd>
+<dt id="&lt;link-href=...&gt;"><a id="link-href"></a><code>&lt;link href=...&gt;</code></dt>
+<dd>
+
+</dd>
+<dt id="&lt;meta-content=...&gt;"><a id="meta-content"></a><code>&lt;meta content=...&gt;</code></dt>
+<dd>
+
+</dd>
+</dl>
+
+<h2 id="$mech-&gt;find_all_links(-...-)"><a id="mech--find_all_links"></a>$mech-&gt;find_all_links( ... )</h2>
+
+<p>Returns all the links on the current page that match the criteria. The method for specifying link criteria is the same as in <code><a href="#find_link()">&quot;find_link()&quot;</a></code>. Each of the links returned is a <a href="/pod/WWW::Mechanize::Link">WWW::Mechanize::Link</a> object.</p>
+
+<p>In list context, <code>find_all_links()</code> returns a list of the links. Otherwise, it returns a reference to the list of links.</p>
+
+<p><code>find_all_links()</code> with no parameters returns all links in the page.</p>
+
+<h2 id="$mech-&gt;find_all_inputs(-...-criteria-...-)"><a id="mech--find_all_inputs--...-criteria"></a>$mech-&gt;find_all_inputs( ... criteria ... )</h2>
+
+<p>find_all_inputs() returns an array of all the input controls in the current form whose properties match all of the regexes passed in. The controls returned are all descended from HTML::Form::Input.</p>
+
+<p>If no criteria are passed, all inputs will be returned.</p>
+
+<p>If there is no current page, there is no form on the current page, or there are no submit controls in the current form then the return will be an empty array.</p>
+
+<p>You may use a regex or a literal string:</p>
+
+<pre><code>    # get all textarea controls whose names begin with &quot;customer&quot;
+    my @customer_text_inputs = $mech-&gt;find_all_inputs(
+        type       =&gt; &#39;textarea&#39;,
+        name_regex =&gt; qr/^customer/,
+    );
+
+    # get all text or textarea controls called &quot;customer&quot;
+    my @customer_text_inputs = $mech-&gt;find_all_inputs(
+        type_regex =&gt; qr/^(text|textarea)$/,
+        name       =&gt; &#39;customer&#39;,
+    );</code></pre>
+
+<h2 id="$mech-&gt;find_all_submits(-...-criteria-...-)"><a id="mech--find_all_submits--...-criteria"></a>$mech-&gt;find_all_submits( ... criteria ... )</h2>
+
+<p><code>find_all_submits()</code> does the same thing as <code>find_all_inputs()</code> except that it only returns controls that are submit controls, ignoring other types of input controls like text and checkboxes.</p>
+
+<h1 id="IMAGE-METHODS"><a id="IMAGE"></a>IMAGE METHODS</h1>
+
+<h2 id="$mech-&gt;images"><a id="mech--images"></a>$mech-&gt;images</h2>
+
+<p>Lists all the images on the current page. Each image is a WWW::Mechanize::Image object. In list context, returns a list of all images. In scalar context, returns an array reference of all images.</p>
+
+<h2 id="$mech-&gt;find_image()"><a id="mech--find_image"></a>$mech-&gt;find_image()</h2>
+
+<p>Finds an image in the current page. It returns a <a href="/pod/WWW::Mechanize::Image">WWW::Mechanize::Image</a> object which describes the image. If it fails to find an image it returns undef.</p>
+
+<p>You can select which image to find by passing in one or more of these key/value pairs:</p>
+
+<ul>
+
+<li><p><code>alt =&gt; &#39;string&#39;</code> and <code>alt_regex =&gt; qr/regex/,</code></p>
+
+<p><code>alt</code> matches the ALT attribute of the image against <i>string</i>, which must be an exact match. To select a image with an ALT tag that is exactly &quot;download&quot;, use</p>
+
+<pre><code>    $mech-&gt;find_image( alt =&gt; &#39;download&#39; );</code></pre>
+
+<p><code>alt_regex</code> matches the ALT attribute of the image against a regular expression. To select an image with an ALT attribute that has &quot;download&quot; anywhere in it, regardless of case, use</p>
+
+<pre><code>    $mech-&gt;find_image( alt_regex =&gt; qr/download/i );</code></pre>
+
+</li>
+<li><p><code>url =&gt; &#39;string&#39;,</code> and <code>url_regex =&gt; qr/regex/,</code></p>
+
+<p>Matches the URL of the image against <i>string</i> or <i>regex</i>, as appropriate. The URL may be a relative URL, like <i>foo/bar.html</i>, depending on how it&#39;s coded on the page.</p>
+
+</li>
+<li><p><code>url_abs =&gt; string</code> and <code>url_abs_regex =&gt; regex</code></p>
+
+<p>Matches the absolute URL of the image against <i>string</i> or <i>regex</i>, as appropriate. The URL will be an absolute URL, even if it&#39;s relative in the page.</p>
+
+</li>
+<li><p><code>tag =&gt; string</code> and <code>tag_regex =&gt; regex</code></p>
+
+<p>Matches the tag that the image came from against <i>string</i> or <i>regex</i>, as appropriate. The <code>tag_regex</code> is probably most useful to check for more than one tag, as in:</p>
+
+<pre><code>    $mech-&gt;find_image( tag_regex =&gt; qr/^(img|input)$/ );</code></pre>
+
+<p>The tags supported are <code>&lt;img&gt;</code> and <code>&lt;input&gt;</code>.</p>
+
+</li>
+</ul>
+
+<p>If <code>n</code> is not specified, it defaults to 1. Therefore, if you don&#39;t specify any parms, this method defaults to finding the first image on the page.</p>
+
+<p>Note that you can specify multiple ALT or URL parameters, which will be ANDed together. For example, to find the first image with ALT text of &quot;News&quot; and with &quot;cnn.com&quot; in the URL, use:</p>
+
+<pre><code>    $mech-&gt;find_image( image =&gt; &#39;News&#39;, url_regex =&gt; qr/cnn\.com/ );</code></pre>
+
+<p>The return value is a reference to an array containing a <a href="/pod/WWW::Mechanize::Image">WWW::Mechanize::Image</a> object for every image in <code>$self-&gt;content</code>.</p>
+
+<h2 id="$mech-&gt;find_all_images(-...-)"><a id="mech--find_all_images"></a>$mech-&gt;find_all_images( ... )</h2>
+
+<p>Returns all the images on the current page that match the criteria. The method for specifying image criteria is the same as in <code><a href="#find_image()">&quot;find_image()&quot;</a></code>. Each of the images returned is a <a href="/pod/WWW::Mechanize::Image">WWW::Mechanize::Image</a> object.</p>
+
+<p>In list context, <code>find_all_images()</code> returns a list of the images. Otherwise, it returns a reference to the list of images.</p>
+
+<p><code>find_all_images()</code> with no parameters returns all images in the page.</p>
+
+<h1 id="FORM-METHODS"><a id="FORM"></a>FORM METHODS</h1>
+
+<p>These methods let you work with the forms on a page. The idea is to choose a form that you&#39;ll later work with using the field methods below.</p>
+
+<h2 id="$mech-&gt;forms"><a id="mech--forms1"></a>$mech-&gt;forms</h2>
+
+<p>Lists all the forms on the current page. Each form is an <a href="/pod/HTML::Form">HTML::Form</a> object. In list context, returns a list of all forms. In scalar context, returns an array reference of all forms.</p>
+
+<h2 id="$mech-&gt;form_number($number)"><a id="mech--form_number-number"></a>$mech-&gt;form_number($number)</h2>
+
+<p>Selects the <i>number</i>th form on the page as the target for subsequent calls to <code><a href="#field()">&quot;field()&quot;</a></code> and <code><a href="#click()">&quot;click()&quot;</a></code>. Also returns the form that was selected.</p>
+
+<p>If it is found, the form is returned as an <a href="/pod/HTML::Form">HTML::Form</a> object and set internally for later use with Mech&#39;s form methods such as <code><a href="#field()">&quot;field()&quot;</a></code> and <code><a href="#click()">&quot;click()&quot;</a></code>.</p>
+
+<p>Emits a warning and returns undef if no form is found.</p>
+
+<p>The first form is number 1, not zero.</p>
+
+<h2 id="$mech-&gt;form_name(-$name-)"><a id="mech--form_name---name"></a>$mech-&gt;form_name( $name )</h2>
+
+<p>Selects a form by name. If there is more than one form on the page with that name, then the first one is used, and a warning is generated.</p>
+
+<p>If it is found, the form is returned as an <a href="/pod/HTML::Form">HTML::Form</a> object and set internally for later use with Mech&#39;s form methods such as <code><a href="#field()">&quot;field()&quot;</a></code> and <code><a href="#click()">&quot;click()&quot;</a></code>.</p>
+
+<p>Returns undef if no form is found.</p>
+
+<h2 id="$mech-&gt;form_id(-$name-)"><a id="mech--form_id---name"></a>$mech-&gt;form_id( $name )</h2>
+
+<p>Selects a form by ID. If there is more than one form on the page with that ID, then the first one is used, and a warning is generated.</p>
+
+<p>If it is found, the form is returned as an <a href="/pod/HTML::Form">HTML::Form</a> object and set internally for later use with Mech&#39;s form methods such as <code><a href="#field()">&quot;field()&quot;</a></code> and <code><a href="#click()">&quot;click()&quot;</a></code>.</p>
+
+<p>If no form is found it returns <code>undef</code>. This will also trigger a warning, unless <code>quiet</code> is enabled.</p>
+
+<h2 id="$mech-&gt;all_forms_with_fields(-@fields-)"><a id="mech--all_forms_with_fields---fields"></a>$mech-&gt;all_forms_with_fields( @fields )</h2>
+
+<p>Selects a form by passing in a list of field names it must contain. All matching forms (perhaps none) are returned as a list of <a href="/pod/HTML::Form">HTML::Form</a> objects.</p>
+
+<h2 id="$mech-&gt;form_with_fields(-@fields-)"><a id="mech--form_with_fields---fields"></a>$mech-&gt;form_with_fields( @fields )</h2>
+
+<p>Selects a form by passing in a list of field names it must contain. If there is more than one form on the page with that matches, then the first one is used, and a warning is generated.</p>
+
+<p>If it is found, the form is returned as an <a href="/pod/HTML::Form">HTML::Form</a> object and set internally for later used with Mech&#39;s form methods such as <code><a href="#field()">&quot;field()&quot;</a></code> and <code><a href="#click()">&quot;click()&quot;</a></code>.</p>
+
+<p>Returns undef and emits a warning if no form is found.</p>
+
+<p>Note that this functionality requires libwww-perl 5.69 or higher.</p>
+
+<h2 id="$mech-&gt;all_forms_with(-$attr1-=&gt;-$value1,-$attr2-=&gt;-$value2,-...-)"><a id="mech--all_forms_with---attr1----value1---attr2----value2"></a>$mech-&gt;all_forms_with( $attr1 =&gt; $value1, $attr2 =&gt; $value2, ... )</h2>
+
+<p>Searches for forms with arbitrary attribute/value pairs within the &lt;form&gt; tag. (Currently does not work for attribute <code>action</code> due to implementation details of <a href="/pod/HTML::Form">HTML::Form</a>.) When given more than one pair, all criteria must match. Using <code>undef</code> as value means that the attribute in question may not be present.</p>
+
+<p>All matching forms (perhaps none) are returned as a list of <a href="/pod/HTML::Form">HTML::Form</a> objects.</p>
+
+<h2 id="$mech-&gt;form_with(-$attr1-=&gt;-$value1,-$attr2-=&gt;-$value2,-...-)"><a id="mech--form_with---attr1----value1---attr2----value2"></a>$mech-&gt;form_with( $attr1 =&gt; $value1, $attr2 =&gt; $value2, ... )</h2>
+
+<p>Searches for forms with arbitrary attribute/value pairs within the &lt;form&gt; tag. (Currently does not work for attribute <code>action</code> due to implementation details of <a href="/pod/HTML::Form">HTML::Form</a>.) When given more than one pair, all criteria must match. Using <code>undef</code> as value means that the attribute in question may not be present.</p>
+
+<p>If it is found, the form is returned as an <a href="/pod/HTML::Form">HTML::Form</a> object and set internally for later used with Mech&#39;s form methods such as <code><a href="#field()">&quot;field()&quot;</a></code> and <code><a href="#click()">&quot;click()&quot;</a></code>.</p>
+
+<p>Returns undef if no form is found.</p>
+
+<h1 id="FIELD-METHODS"><a id="FIELD"></a>FIELD METHODS</h1>
+
+<p>These methods allow you to set the values of fields in a given form.</p>
+
+<h2 id="$mech-&gt;field(-$name,-$value,-$number-)"><a id="mech--field---name---value---number"></a>$mech-&gt;field( $name, $value, $number )</h2>
+
+<h2 id="$mech-&gt;field(-$name,-\@values,-$number-)"><a id="mech--field---name---values---number"></a>$mech-&gt;field( $name, \@values, $number )</h2>
+
+<p>Given the name of a field, set its value to the value specified. This applies to the current form (as set by the <a href="#form_name()">&quot;form_name()&quot;</a> or <a href="#form_number()">&quot;form_number()&quot;</a> method or defaulting to the first form on the page).</p>
+
+<p>The optional <i>$number</i> parameter is used to distinguish between two fields with the same name. The fields are numbered from 1.</p>
+
+<h2 id="$mech-&gt;select($name,-$value)"><a id="mech--select-name---value"></a>$mech-&gt;select($name, $value)</h2>
+
+<h2 id="$mech-&gt;select($name,-\@values)"><a id="mech--select-name---values"></a>$mech-&gt;select($name, \@values)</h2>
+
+<p>Given the name of a <code>select</code> field, set its value to the value specified. If the field is not <code>&lt;select multiple&gt;</code> and the <code>$value</code> is an array, only the <b>first</b> value will be set. [Note: the documentation previously claimed that only the last value would be set, but this was incorrect.] Passing <code>$value</code> as a hash with an <code>n</code> key selects an item by number (e.g. <code>{n =&gt; 3}</code> or <code>{n =&gt; [2,4]}</code>). The numbering starts at 1. This applies to the current form.</p>
+
+<p>If you have a field with <code>&lt;select multiple&gt;</code> and you pass a single <code>$value</code>, then <code>$value</code> will be added to the list of fields selected, without clearing the others. However, if you pass an array reference, then all previously selected values will be cleared.</p>
+
+<p>Returns true on successfully setting the value. On failure, returns false and calls <code>$self&gt;warn()</code> with an error message.</p>
+
+<h2 id="$mech-&gt;set_fields(-$name-=&gt;-$value-...-)"><a id="mech--set_fields---name----value"></a>$mech-&gt;set_fields( $name =&gt; $value ... )</h2>
+
+<p>This method sets multiple fields of the current form. It takes a list of field name and value pairs. If there is more than one field with the same name, the first one found is set. If you want to select which of the duplicate field to set, use a value which is an anonymous array which has the field value and its number as the 2 elements.</p>
+
+<pre><code>        # set the second foo field
+        $mech-&gt;set_fields( $name =&gt; [ &#39;foo&#39;, 2 ] );</code></pre>
+
+<p>The fields are numbered from 1.</p>
+
+<p>This applies to the current form.</p>
+
+<h2 id="$mech-&gt;set_visible(-@criteria-)"><a id="mech--set_visible---criteria"></a>$mech-&gt;set_visible( @criteria )</h2>
+
+<p>This method sets fields of the current form without having to know their names. So if you have a login screen that wants a username and password, you do not have to fetch the form and inspect the source (or use the <i>mech-dump</i> utility, installed with WWW::Mechanize) to see what the field names are; you can just say</p>
+
+<pre><code>    $mech-&gt;set_visible( $username, $password );</code></pre>
+
+<p>and the first and second fields will be set accordingly. The method is called set_<i>visible</i> because it acts only on visible fields; hidden form inputs are not considered. The order of the fields is the order in which they appear in the HTML source which is nearly always the order anyone viewing the page would think they are in, but some creative work with tables could change that; caveat user.</p>
+
+<p>Each element in <code>@criteria</code> is either a field value or a field specifier. A field value is a scalar. A field specifier allows you to specify the <i>type</i> of input field you want to set and is denoted with an arrayref containing two elements. So you could specify the first radio button with</p>
+
+<pre><code>    $mech-&gt;set_visible( [ radio =&gt; &#39;KCRW&#39; ] );</code></pre>
+
+<p>Field values and specifiers can be intermixed, hence</p>
+
+<pre><code>    $mech-&gt;set_visible( &#39;fred&#39;, &#39;secret&#39;, [ option =&gt; &#39;Checking&#39; ] );</code></pre>
+
+<p>would set the first two fields to &quot;fred&quot; and &quot;secret&quot;, and the <i>next</i> <code>OPTION</code> menu field to &quot;Checking&quot;.</p>
+
+<p>The possible field specifier types are: &quot;text&quot;, &quot;password&quot;, &quot;hidden&quot;, &quot;textarea&quot;, &quot;file&quot;, &quot;image&quot;, &quot;submit&quot;, &quot;radio&quot;, &quot;checkbox&quot; and &quot;option&quot;.</p>
+
+<p><code>set_visible</code> returns the number of values set.</p>
+
+<h2 id="$mech-&gt;tick(-$name,-$value-[,-$set]-)"><a id="mech--tick---name---value----set"></a>$mech-&gt;tick( $name, $value [, $set] )</h2>
+
+<p>&quot;Ticks&quot; the first checkbox that has both the name and value associated with it on the current form. Dies if there is no named check box for that value. Passing in a false value as the third optional argument will cause the checkbox to be unticked.</p>
+
+<h2 id="$mech-&gt;untick($name,-$value)"><a id="mech--untick-name---value"></a>$mech-&gt;untick($name, $value)</h2>
+
+<p>Causes the checkbox to be unticked. Shorthand for <code>tick($name,$value,undef)</code></p>
+
+<h2 id="$mech-&gt;value(-$name-[,-$number]-)"><a id="mech--value---name----number"></a>$mech-&gt;value( $name [, $number] )</h2>
+
+<p>Given the name of a field, return its value. This applies to the current form.</p>
+
+<p>The optional <i>$number</i> parameter is used to distinguish between two fields with the same name. The fields are numbered from 1.</p>
+
+<p>If the field is of type file (file upload field), the value is always cleared to prevent remote sites from downloading your local files. To upload a file, specify its file name explicitly.</p>
+
+<h2 id="$mech-&gt;click(-$button-[,-$x,-$y]-)"><a id="mech--click---button----x---y"></a>$mech-&gt;click( $button [, $x, $y] )</h2>
+
+<p>Has the effect of clicking a button on the current form. The first argument is the name of the button to be clicked. The second and third arguments (optional) allow you to specify the (x,y) coordinates of the click.</p>
+
+<p>If there is only one button on the form, <code>$mech-&gt;click()</code> with no arguments simply clicks that one button.</p>
+
+<p>Returns an <a href="/pod/HTTP::Response">HTTP::Response</a> object.</p>
+
+<h2 id="$mech-&gt;click_button(-...-)"><a id="mech--click_button"></a>$mech-&gt;click_button( ... )</h2>
+
+<p>Has the effect of clicking a button on the current form by specifying its name, value, or index. Its arguments are a list of key/value pairs. Only one of name, number, input or value must be specified in the keys.</p>
+
+<ul>
+
+<li><p><code>name =&gt; name</code></p>
+
+<p>Clicks the button named <i>name</i> in the current form.</p>
+
+</li>
+<li><p><code>id =&gt; id</code></p>
+
+<p>Clicks the button with the id <i>id</i> in the current form.</p>
+
+</li>
+<li><p><code>number =&gt; n</code></p>
+
+<p>Clicks the <i>n</i>th button in the current form. Numbering starts at 1.</p>
+
+</li>
+<li><p><code>value =&gt; value</code></p>
+
+<p>Clicks the button with the value <i>value</i> in the current form.</p>
+
+</li>
+<li><p><code>input =&gt; $inputobject</code></p>
+
+<p>Clicks on the button referenced by $inputobject, an instance of <a href="/pod/HTML::Form::SubmitInput">HTML::Form::SubmitInput</a> obtained e.g. from</p>
+
+<pre><code>    $mech-&gt;current_form()-&gt;find_input( undef, &#39;submit&#39; )</code></pre>
+
+<p>$inputobject must belong to the current form.</p>
+
+</li>
+<li><p><code>x =&gt; x</code></p>
+
+</li>
+<li><p><code>y =&gt; y</code></p>
+
+<p>These arguments (optional) allow you to specify the (x,y) coordinates of the click.</p>
+
+</li>
+</ul>
+
+<h2 id="$mech-&gt;submit()"><a id="mech--submit"></a>$mech-&gt;submit()</h2>
+
+<p>Submits the current form, without specifying a button to click. Actually, no button is clicked at all.</p>
+
+<p>Returns an <a href="/pod/HTTP::Response">HTTP::Response</a> object.</p>
+
+<p>This used to be a synonym for <code>$mech-&gt;click( &#39;submit&#39; )</code>, but is no longer so.</p>
+
+<h2 id="$mech-&gt;submit_form(-...-)"><a id="mech--submit_form"></a>$mech-&gt;submit_form( ... )</h2>
+
+<p>This method lets you select a form from the previously fetched page, fill in its fields, and submit it. It combines the form_number/form_name, set_fields and click methods into one higher level call. Its arguments are a list of key/value pairs, all of which are optional.</p>
+
+<ul>
+
+<li><p><code>fields =&gt; \%fields</code></p>
+
+<p>Specifies the fields to be filled in the current form.</p>
+
+</li>
+<li><p><code>with_fields =&gt; \%fields</code></p>
+
+<p>Probably all you need for the common case. It combines a smart form selector and data setting in one operation. It selects the first form that contains all fields mentioned in <code>\%fields</code>. This is nice because you don&#39;t need to know the name or number of the form to do this.</p>
+
+<p>(calls <code><a href="#form_with_fields()">&quot;form_with_fields()&quot;</a></code> and <code><a href="#set_fields()">&quot;set_fields()&quot;</a></code>).</p>
+
+<p>If you choose this, the form_number, form_name, form_id and fields options will be ignored.</p>
+
+</li>
+<li><p><code>form_number =&gt; n</code></p>
+
+<p>Selects the <i>n</i>th form (calls <code><a href="#form_number()">&quot;form_number()&quot;</a></code>). If this parm is not specified, the currently-selected form is used.</p>
+
+</li>
+<li><p><code>form_name =&gt; name</code></p>
+
+<p>Selects the form named <i>name</i> (calls <code><a href="#form_name()">&quot;form_name()&quot;</a></code>)</p>
+
+</li>
+<li><p><code>form_id =&gt; ID</code></p>
+
+<p>Selects the form with ID <i>ID</i> (calls <code><a href="#form_id()">&quot;form_id()&quot;</a></code>)</p>
+
+</li>
+<li><p><code>button =&gt; button</code></p>
+
+<p>Clicks on button <i>button</i> (calls <code><a href="#click()">&quot;click()&quot;</a></code>)</p>
+
+</li>
+<li><p><code>x =&gt; x, y =&gt; y</code></p>
+
+<p>Sets the x or y values for <code><a href="#click()">&quot;click()&quot;</a></code></p>
+
+</li>
+<li><p><code>strict_forms =&gt; bool</code></p>
+
+<p>Sets the HTML::Form strict flag which causes form submission to croak if any of the passed fields don&#39;t exist on the page, and/or a value doesn&#39;t exist in a select element. By default HTML::Form defaults this value to false.</p>
+
+</li>
+</ul>
+
+<p>If no form is selected, the first form found is used.</p>
+
+<p>If <i>button</i> is not passed, then the <code><a href="#submit()">&quot;submit()&quot;</a></code> method is used instead.</p>
+
+<p>If you want to submit a file and get its content from a scalar rather than a file in the filesystem, you can use:</p>
+
+<pre><code>    $mech-&gt;submit_form(with_fields =&gt; { logfile =&gt; [ [ undef, &#39;whatever&#39;, Content =&gt; $content ], 1 ] } );</code></pre>
+
+<p>Returns an <a href="/pod/HTTP::Response">HTTP::Response</a> object.</p>
+
+<h1 id="MISCELLANEOUS-METHODS"><a id="MISCELLANEOUS"></a>MISCELLANEOUS METHODS</h1>
+
+<h2 id="$mech-&gt;add_header(-name-=&gt;-$value-[,-name-=&gt;-$value...-]-)"><a id="mech--add_header--name----value---name----value"></a>$mech-&gt;add_header( name =&gt; $value [, name =&gt; $value... ] )</h2>
+
+<p>Sets HTTP headers for the agent to add or remove from the HTTP request.</p>
+
+<pre><code>    $mech-&gt;add_header( Encoding =&gt; &#39;text/klingon&#39; );</code></pre>
+
+<p>If a <i>value</i> is <code>undef</code>, then that header will be removed from any future requests. For example, to never send a Referer header:</p>
+
+<pre><code>    $mech-&gt;add_header( Referer =&gt; undef );</code></pre>
+
+<p>If you want to delete a header, use <code>delete_header</code>.</p>
+
+<p>Returns the number of name/value pairs added.</p>
+
+<p><b>NOTE</b>: This method was very different in WWW::Mechanize before 1.00. Back then, the headers were stored in a package hash, not as a member of the object instance. Calling <code>add_header()</code> would modify the headers for every WWW::Mechanize object, even after your object no longer existed.</p>
+
+<h2 id="$mech-&gt;delete_header(-name-[,-name-...-]-)"><a id="mech--delete_header--name---name"></a>$mech-&gt;delete_header( name [, name ... ] )</h2>
+
+<p>Removes HTTP headers from the agent&#39;s list of special headers. For instance, you might need to do something like:</p>
+
+<pre><code>    # Don&#39;t send a Referer for this URL
+    $mech-&gt;add_header( Referer =&gt; undef );
+
+    # Get the URL
+    $mech-&gt;get( $url );
+
+    # Back to the default behavior
+    $mech-&gt;delete_header( &#39;Referer&#39; );</code></pre>
+
+<h2 id="$mech-&gt;quiet(true/false)"><a id="mech--quiet-true-false"></a>$mech-&gt;quiet(true/false)</h2>
+
+<p>Allows you to suppress warnings to the screen.</p>
+
+<pre><code>    $mech-&gt;quiet(0); # turns on warnings (the default)
+    $mech-&gt;quiet(1); # turns off warnings
+    $mech-&gt;quiet();  # returns the current quietness status</code></pre>
+
+<h2 id="$mech-&gt;stack_depth(-$max_depth-)"><a id="mech--stack_depth---max_depth"></a>$mech-&gt;stack_depth( $max_depth )</h2>
+
+<p>Get or set the page stack depth. Use this if you&#39;re doing a lot of page scraping and running out of memory.</p>
+
+<p>A value of 0 means &quot;no history at all.&quot; By default, the max stack depth is humongously large, effectively keeping all history.</p>
+
+<h2 id="$mech-&gt;save_content(-$filename,-%opts-)"><a id="mech--save_content---filename---opts"></a>$mech-&gt;save_content( $filename, %opts )</h2>
+
+<p>Dumps the contents of <code>$mech-&gt;content</code> into <i>$filename</i>. <i>$filename</i> will be overwritten. Dies if there are any errors.</p>
+
+<p>If the content type does not begin with &quot;text/&quot;, then the content is saved in binary mode (i.e. <code>binmode()</code> is set on the output filehandle).</p>
+
+<p>Additional arguments can be passed as <i>key</i>/<i>value</i> pairs:</p>
+
+<dl>
+
+<dt id="$mech-&gt;save_content(-$filename,-binary-=&gt;-1-)"><a id="mech--save_content---filename--binary---1"></a><i>$mech-&gt;save_content( $filename, binary =&gt; 1 )</i></dt>
+<dd>
+
+<p>Filehandle is set with <code>binmode</code> to <code>:raw</code> and contents are taken calling <code>$self-&gt;content(decoded_by_headers =&gt; 1)</code>. Same as calling:</p>
+
+<pre><code>    $mech-&gt;save_content( $filename, binmode =&gt; &#39;:raw&#39;,
+                         decoded_by_headers =&gt; 1 );</code></pre>
+
+<p>This <i>should</i> be the safest way to save contents verbatim.</p>
+
+</dd>
+<dt id="$mech-&gt;save_content(-$filename,-binmode-=&gt;-$binmode-)"><a id="mech--save_content---filename--binmode----binmode"></a><i>$mech-&gt;save_content( $filename, binmode =&gt; $binmode )</i></dt>
+<dd>
+
+<p>Filehandle is set to binary mode. If <code>$binmode</code> begins with &#39;:&#39;, it is passed as a parameter to <code>binmode</code>:</p>
+
+<pre><code>    binmode $fh, $binmode;</code></pre>
+
+<p>otherwise the filehandle is set to binary mode if <code>$binmode</code> is true:</p>
+
+<pre><code>    binmode $fh;</code></pre>
+
+</dd>
+<dt id="all-other-arguments"><a id="all"></a><i>all other arguments</i></dt>
+<dd>
+
+<p>are passed as-is to <code>$mech-&gt;content(%opts)</code>. In particular, <code>decoded_by_headers</code> might come handy if you want to revert the effect of line compression performed by the web server but without further interpreting the contents (e.g. decoding it according to the charset).</p>
+
+</dd>
+</dl>
+
+<h2 id="$mech-&gt;dump_headers(-[$fh]-)"><a id="mech--dump_headers---fh"></a>$mech-&gt;dump_headers( [$fh] )</h2>
+
+<p>Prints a dump of the HTTP response headers for the most recent response. If <i>$fh</i> is not specified or is undef, it dumps to STDOUT.</p>
+
+<p>Unlike the rest of the dump_* methods, $fh can be a scalar. It will be used as a file name.</p>
+
+<h2 id="$mech-&gt;dump_links(-[[$fh],-$absolute]-)"><a id="mech--dump_links---fh---absolute"></a>$mech-&gt;dump_links( [[$fh], $absolute] )</h2>
+
+<p>Prints a dump of the links on the current page to <i>$fh</i>. If <i>$fh</i> is not specified or is undef, it dumps to STDOUT.</p>
+
+<p>If <i>$absolute</i> is true, links displayed are absolute, not relative.</p>
+
+<h2 id="$mech-&gt;dump_images(-[[$fh],-$absolute]-)"><a id="mech--dump_images---fh---absolute"></a>$mech-&gt;dump_images( [[$fh], $absolute] )</h2>
+
+<p>Prints a dump of the images on the current page to <i>$fh</i>. If <i>$fh</i> is not specified or is undef, it dumps to STDOUT.</p>
+
+<p>If <i>$absolute</i> is true, links displayed are absolute, not relative.</p>
+
+<h2 id="$mech-&gt;dump_forms(-[$fh]-)"><a id="mech--dump_forms---fh"></a>$mech-&gt;dump_forms( [$fh] )</h2>
+
+<p>Prints a dump of the forms on the current page to <i>$fh</i>. If <i>$fh</i> is not specified or is undef, it dumps to STDOUT.</p>
+
+<h2 id="$mech-&gt;dump_text(-[$fh]-)"><a id="mech--dump_text---fh"></a>$mech-&gt;dump_text( [$fh] )</h2>
+
+<p>Prints a dump of the text on the current page to <i>$fh</i>. If <i>$fh</i> is not specified or is undef, it dumps to STDOUT.</p>
+
+<h1 id="OVERRIDDEN-LWP::UserAgent-METHODS"><a id="OVERRIDDEN"></a>OVERRIDDEN LWP::UserAgent METHODS</h1>
+
+<h2 id="$mech-&gt;clone()"><a id="mech--clone"></a>$mech-&gt;clone()</h2>
+
+<p>Clone the mech object. The clone will be using the same cookie jar as the original mech.</p>
+
+<h2 id="$mech-&gt;redirect_ok()"><a id="mech--redirect_ok"></a>$mech-&gt;redirect_ok()</h2>
+
+<p>An overloaded version of <code>redirect_ok()</code> in <a href="/pod/LWP::UserAgent">LWP::UserAgent</a>. This method is used to determine whether a redirection in the request should be followed.</p>
+
+<p>Note that WWW::Mechanize&#39;s constructor pushes POST on to the agent&#39;s <code>requests_redirectable</code> list.</p>
+
+<h2 id="$mech-&gt;request(-$request-[,-$arg-[,-$size]])"><a id="mech--request---request----arg----size"></a>$mech-&gt;request( $request [, $arg [, $size]])</h2>
+
+<p>Overloaded version of <code>request()</code> in <a href="/pod/LWP::UserAgent">LWP::UserAgent</a>. Performs the actual request. Normally, if you&#39;re using WWW::Mechanize, it&#39;s because you don&#39;t want to deal with this level of stuff anyway.</p>
+
+<p>Note that <code>$request</code> will be modified.</p>
+
+<p>Returns an <a href="/pod/HTTP::Response">HTTP::Response</a> object.</p>
+
+<h2 id="$mech-&gt;update_html(-$html-)"><a id="mech--update_html---html"></a>$mech-&gt;update_html( $html )</h2>
+
+<p>Allows you to replace the HTML that the mech has found. Updates the forms and links parse-trees that the mech uses internally.</p>
+
+<p>Say you have a page that you know has malformed output, and you want to update it so the links come out correctly:</p>
+
+<pre><code>    my $html = $mech-&gt;content;
+    $html =~ s[&lt;/option&gt;.{0,3}&lt;/td&gt;][&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;]isg;
+    $mech-&gt;update_html( $html );</code></pre>
+
+<p>This method is also used internally by the mech itself to update its own HTML content when loading a page. This means that if you would like to <i>systematically</i> perform the above HTML substitution, you would overload <i>update_html</i> in a subclass thusly:</p>
+
+<pre><code>   package MyMech;
+   use base &#39;WWW::Mechanize&#39;;
+
+   sub update_html {
+       my ($self, $html) = @_;
+       $html =~ s[&lt;/option&gt;.{0,3}&lt;/td&gt;][&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;]isg;
+       $self-&gt;WWW::Mechanize::update_html( $html );
+   }</code></pre>
+
+<p>If you do this, then the mech will use the tidied-up HTML instead of the original both when parsing for its own needs, and for returning to you through <a href="#content">&quot;content&quot;</a>.</p>
+
+<p>Overloading this method is also the recommended way of implementing extra validation steps (e.g. link checkers) for every HTML page received. <a href="#warn">&quot;warn&quot;</a> and <a href="#die">&quot;die&quot;</a> would then come in handy to signal validation errors.</p>
+
+<h2 id="$mech-&gt;credentials(-$username,-$password-)"><a id="mech--credentials---username---password"></a>$mech-&gt;credentials( $username, $password )</h2>
+
+<p>Provide credentials to be used for HTTP Basic authentication for all sites and realms until further notice.</p>
+
+<p>The four argument form described in <a href="/pod/LWP::UserAgent">LWP::UserAgent</a> is still supported.</p>
+
+<h2 id="$mech-&gt;get_basic_credentials(-$realm,-$uri,-$isproxy-)"><a id="mech--get_basic_credentials---realm---uri---isproxy"></a>$mech-&gt;get_basic_credentials( $realm, $uri, $isproxy )</h2>
+
+<p>Returns the credentials for the realm and URI.</p>
+
+<h2 id="$mech-&gt;clear_credentials()"><a id="mech--clear_credentials"></a>$mech-&gt;clear_credentials()</h2>
+
+<p>Remove any credentials set up with <code>credentials()</code>.</p>
+
+<h1 id="INHERITED-UNCHANGED-LWP::UserAgent-METHODS"><a id="INHERITED"></a>INHERITED UNCHANGED LWP::UserAgent METHODS</h1>
+
+<p>As a subclass of <a href="/pod/LWP::UserAgent">LWP::UserAgent</a>, WWW::Mechanize inherits all of <a href="/pod/LWP::UserAgent">LWP::UserAgent</a>&#39;s methods. Many of which are overridden or extended. The following methods are inherited unchanged. View the <a href="/pod/LWP::UserAgent">LWP::UserAgent</a> documentation for their implementation descriptions.</p>
+
+<p>This is not meant to be an inclusive list. LWP::UA may have added others.</p>
+
+<h2 id="$mech-&gt;head()"><a id="mech--head"></a>$mech-&gt;head()</h2>
+
+<p>Inherited from <a href="/pod/LWP::UserAgent">LWP::UserAgent</a>.</p>
+
+<h2 id="$mech-&gt;post()"><a id="mech--post"></a>$mech-&gt;post()</h2>
+
+<p>Inherited from <a href="/pod/LWP::UserAgent">LWP::UserAgent</a>.</p>
+
+<h2 id="$mech-&gt;mirror()"><a id="mech--mirror"></a>$mech-&gt;mirror()</h2>
+
+<p>Inherited from <a href="/pod/LWP::UserAgent">LWP::UserAgent</a>.</p>
+
+<h2 id="$mech-&gt;simple_request()"><a id="mech--simple_request"></a>$mech-&gt;simple_request()</h2>
+
+<p>Inherited from <a href="/pod/LWP::UserAgent">LWP::UserAgent</a>.</p>
+
+<h2 id="$mech-&gt;is_protocol_supported()"><a id="mech--is_protocol_supported"></a>$mech-&gt;is_protocol_supported()</h2>
+
+<p>Inherited from <a href="/pod/LWP::UserAgent">LWP::UserAgent</a>.</p>
+
+<h2 id="$mech-&gt;prepare_request()"><a id="mech--prepare_request"></a>$mech-&gt;prepare_request()</h2>
+
+<p>Inherited from <a href="/pod/LWP::UserAgent">LWP::UserAgent</a>.</p>
+
+<h2 id="$mech-&gt;progress()"><a id="mech--progress"></a>$mech-&gt;progress()</h2>
+
+<p>Inherited from <a href="/pod/LWP::UserAgent">LWP::UserAgent</a>.</p>
+
+<h1 id="INTERNAL-ONLY-METHODS"><a id="INTERNAL"></a>INTERNAL-ONLY METHODS</h1>
+
+<p>These methods are only used internally. You probably don&#39;t need to know about them.</p>
+
+<h2 id="$mech-&gt;_update_page($request,-$response)"><a id="mech--_update_page-request---response"></a>$mech-&gt;_update_page($request, $response)</h2>
+
+<p>Updates all internal variables in $mech as if $request was just performed, and returns $response. The page stack is <b>not</b> altered by this method, it is up to caller (e.g. <a href="#request">&quot;request&quot;</a>) to do that.</p>
+
+<h2 id="$mech-&gt;_modify_request(-$req-)"><a id="mech--_modify_request---req"></a>$mech-&gt;_modify_request( $req )</h2>
+
+<p>Modifies a <a href="/pod/HTTP::Request">HTTP::Request</a> before the request is sent out, for both GET and POST requests.</p>
+
+<p>We add a <code>Referer</code> header, as well as header to note that we can accept gzip encoded content, if <a href="/pod/Compress::Zlib">Compress::Zlib</a> is installed.</p>
+
+<h2 id="$mech-&gt;_make_request()"><a id="mech--_make_request"></a>$mech-&gt;_make_request()</h2>
+
+<p>Convenience method to make it easier for subclasses like <a href="/pod/WWW::Mechanize::Cached">WWW::Mechanize::Cached</a> to intercept the request.</p>
+
+<h2 id="$mech-&gt;_reset_page()"><a id="mech--_reset_page"></a>$mech-&gt;_reset_page()</h2>
+
+<p>Resets the internal fields that track page parsed stuff.</p>
+
+<h2 id="$mech-&gt;_extract_links()"><a id="mech--_extract_links"></a>$mech-&gt;_extract_links()</h2>
+
+<p>Extracts links from the content of a webpage, and populates the <code>{links}</code> property with <a href="/pod/WWW::Mechanize::Link">WWW::Mechanize::Link</a> objects.</p>
+
+<h2 id="$mech-&gt;_push_page_stack()"><a id="mech--_push_page_stack"></a>$mech-&gt;_push_page_stack()</h2>
+
+<p>The agent keeps a stack of visited pages, which it can pop when it needs to go BACK and so on.</p>
+
+<p>The current page needs to be pushed onto the stack before we get a new page, and the stack needs to be popped when BACK occurs.</p>
+
+<p>Neither of these take any arguments, they just operate on the $mech object.</p>
+
+<h2 id="warn(-@messages-)"><a id="warn"></a><a id="warn---messages"></a>warn( @messages )</h2>
+
+<p>Centralized warning method, for diagnostics and non-fatal problems. Defaults to calling <code>CORE::warn</code>, but may be overridden by setting <code>onwarn</code> in the constructor.</p>
+
+<h2 id="die(-@messages-)"><a id="die"></a><a id="die---messages"></a>die( @messages )</h2>
+
+<p>Centralized error method. Defaults to calling <code>CORE::die</code>, but may be overridden by setting <code>onerror</code> in the constructor.</p>
+
+<h1 id="WWW::MECHANIZE&#39;S-GIT-REPOSITORY"><a id="WWW"></a><a id="WWW::MECHANIZE-S-GIT-REPOSITORY"></a>WWW::MECHANIZE&#39;S GIT REPOSITORY</h1>
+
+<p>WWW::Mechanize is hosted at GitHub.</p>
+
+<p>Repository: <a href="https://github.com/libwww-perl/WWW-Mechanize">https://github.com/libwww-perl/WWW-Mechanize</a>. Bugs: <a href="https://github.com/libwww-perl/WWW-Mechanize/issues">https://github.com/libwww-perl/WWW-Mechanize/issues</a>.</p>
+
+<h1 id="OTHER-DOCUMENTATION"><a id="OTHER"></a>OTHER DOCUMENTATION</h1>
+
+<h2 id="Spidering-Hacks,-by-Kevin-Hemenway-and-Tara-Calishain"><a id="Spidering"></a><a id="Spidering-Hacks--by-Kevin-Hemenway-and-Tara-Calishain"></a><i>Spidering Hacks</i>, by Kevin Hemenway and Tara Calishain</h2>
+
+<p><i>Spidering Hacks</i> from O&#39;Reilly (<a href="http://www.oreilly.com/catalog/spiderhks/">http://www.oreilly.com/catalog/spiderhks/</a>) is a great book for anyone wanting to know more about screen-scraping and spidering.</p>
+
+<p>There are six hacks that use Mech or a Mech derivative:</p>
+
+<dl>
+
+<dt id="#21-WWW::Mechanize-101"><a id="WWW::Mechanize-101"></a>#21 WWW::Mechanize 101</dt>
+<dd>
+
+</dd>
+<dt id="#22-Scraping-with-WWW::Mechanize"><a id="Scraping-with-WWW::Mechanize"></a>#22 Scraping with WWW::Mechanize</dt>
+<dd>
+
+</dd>
+<dt id="#36-Downloading-Images-from-Webshots"><a id="Downloading-Images-from-Webshots"></a>#36 Downloading Images from Webshots</dt>
+<dd>
+
+</dd>
+<dt id="#44-Archiving-Yahoo!-Groups-Messages-with-WWW::Yahoo::Groups"><a id="Archiving-Yahoo--Groups-Messages-with-WWW::Yahoo::Groups"></a>#44 Archiving Yahoo! Groups Messages with WWW::Yahoo::Groups</dt>
+<dd>
+
+</dd>
+<dt id="#64-Super-Author-Searching"><a id="Super-Author-Searching"></a>#64 Super Author Searching</dt>
+<dd>
+
+</dd>
+<dt id="#73-Scraping-TV-Listings"><a id="Scraping-TV-Listings"></a>#73 Scraping TV Listings</dt>
+<dd>
+
+</dd>
+</dl>
+
+<p>The book was also positively reviewed on Slashdot: <a href="http://books.slashdot.org/article.pl?sid=03/12/11/2126256">http://books.slashdot.org/article.pl?sid=03/12/11/2126256</a></p>
+
+<h1 id="ONLINE-RESOURCES-AND-SUPPORT"><a id="ONLINE"></a>ONLINE RESOURCES AND SUPPORT</h1>
+
+<ul>
+
+<li><p>WWW::Mechanize mailing list</p>
+
+<p>The Mech mailing list is at <a href="http://groups.google.com/group/www-mechanize-users">http://groups.google.com/group/www-mechanize-users</a> and is specific to Mechanize, unlike the LWP mailing list below. Although it is a users list, all development discussion takes place here, too.</p>
+
+</li>
+<li><p>LWP mailing list</p>
+
+<p>The LWP mailing list is at <a href="http://lists.perl.org/showlist.cgi?name=libwww">http://lists.perl.org/showlist.cgi?name=libwww</a>, and is more user-oriented and well-populated than the WWW::Mechanize list.</p>
+
+</li>
+<li><p>Perlmonks</p>
+
+<p><a href="http://perlmonks.org">http://perlmonks.org</a> is an excellent community of support, and many questions about Mech have already been answered there.</p>
+
+</li>
+<li><p><a href="/pod/distribution/WWW-Mechanize/lib/WWW/Mechanize/Examples.pod">WWW::Mechanize::Examples</a></p>
+
+<p>A random array of examples submitted by users, included with the Mechanize distribution.</p>
+
+</li>
+</ul>
+
+<h1 id="ARTICLES-ABOUT-WWW::MECHANIZE"><a id="ARTICLES"></a>ARTICLES ABOUT WWW::MECHANIZE</h1>
+
+<ul>
+
+<li><p><a href="http://www.ibm.com/developerworks/linux/library/wa-perlsecure/">http://www.ibm.com/developerworks/linux/library/wa-perlsecure/</a></p>
+
+<p>IBM article &quot;Secure Web site access with Perl&quot;</p>
+
+</li>
+<li><p><a href="http://www.oreilly.com/catalog/googlehks2/chapter/hack84.pdf">http://www.oreilly.com/catalog/googlehks2/chapter/hack84.pdf</a></p>
+
+<p>Leland Johnson&#39;s hack #84 in <i>Google Hacks, 2nd Edition</i> is an example of a production script that uses WWW::Mechanize and HTML::TableContentParser. It takes in keywords and returns the estimated price of these keywords on Google&#39;s AdWords program.</p>
+
+</li>
+<li><p><a href="http://www.perl.com/pub/a/2004/06/04/recorder.html">http://www.perl.com/pub/a/2004/06/04/recorder.html</a></p>
+
+<p>Linda Julien writes about using HTTP::Recorder to create WWW::Mechanize scripts.</p>
+
+</li>
+<li><p><a href="http://www.developer.com/lang/other/article.php/3454041">http://www.developer.com/lang/other/article.php/3454041</a></p>
+
+<p>Jason Gilmore&#39;s article on using WWW::Mechanize for scraping sales information from Amazon and eBay.</p>
+
+</li>
+<li><p><a href="http://www.perl.com/pub/a/2003/01/22/mechanize.html">http://www.perl.com/pub/a/2003/01/22/mechanize.html</a></p>
+
+<p>Chris Ball&#39;s article about using WWW::Mechanize for scraping TV listings.</p>
+
+</li>
+<li><p><a href="http://www.stonehenge.com/merlyn/LinuxMag/col47.html">http://www.stonehenge.com/merlyn/LinuxMag/col47.html</a></p>
+
+<p>Randal Schwartz&#39;s article on scraping Yahoo News for images. It&#39;s already out of date: He manually walks the list of links hunting for matches, which wouldn&#39;t have been necessary if the <code>find_link()</code> method existed at press time.</p>
+
+</li>
+<li><p><a href="http://www.perladvent.org/2002/16th/">http://www.perladvent.org/2002/16th/</a></p>
+
+<p>WWW::Mechanize on the Perl Advent Calendar, by Mark Fowler.</p>
+
+</li>
+<li><p><a href="http://www.linux-magazin.de/Ausgaben/2004/03/Datenruessel/%28language%29/ger-DE">http://www.linux-magazin.de/Ausgaben/2004/03/Datenruessel/%28language%29/ger-DE</a></p>
+
+<p>Michael Schilli&#39;s article on Mech and <a href="/pod/WWW::Mechanize::Shell">WWW::Mechanize::Shell</a> for the German magazine <i>Linux Magazin</i>.</p>
+
+</li>
+</ul>
+
+<h2 id="Other-modules-that-use-Mechanize"><a id="Other"></a>Other modules that use Mechanize</h2>
+
+<p>Here are modules that use or subclass Mechanize. Let me know of any others:</p>
+
+<ul>
+
+<li><p><a href="/pod/Finance::Bank::LloydsTSB">Finance::Bank::LloydsTSB</a></p>
+
+</li>
+<li><p><a href="/pod/HTTP::Recorder">HTTP::Recorder</a></p>
+
+<p>Acts as a proxy for web interaction, and then generates WWW::Mechanize scripts.</p>
+
+</li>
+<li><p><a href="/pod/Win32::IE::Mechanize">Win32::IE::Mechanize</a></p>
+
+<p>Just like Mech, but using Microsoft Internet Explorer to do the work.</p>
+
+</li>
+<li><p><a href="/pod/WWW::Bugzilla">WWW::Bugzilla</a></p>
+
+</li>
+<li><p><a href="/pod/WWW::CheckSite">WWW::CheckSite</a></p>
+
+</li>
+<li><p><a href="/pod/WWW::Google::Groups">WWW::Google::Groups</a></p>
+
+</li>
+<li><p><a href="/pod/WWW::Hotmail">WWW::Hotmail</a></p>
+
+</li>
+<li><p><a href="/pod/WWW::Mechanize::Cached">WWW::Mechanize::Cached</a></p>
+
+</li>
+<li><p><a href="/pod/WWW::Mechanize::Cached::GZip">WWW::Mechanize::Cached::GZip</a></p>
+
+</li>
+<li><p><a href="/pod/WWW::Mechanize::FormFiller">WWW::Mechanize::FormFiller</a></p>
+
+</li>
+<li><p><a href="/pod/WWW::Mechanize::Shell">WWW::Mechanize::Shell</a></p>
+
+</li>
+<li><p><a href="/pod/WWW::Mechanize::Sleepy">WWW::Mechanize::Sleepy</a></p>
+
+</li>
+<li><p><a href="/pod/WWW::Mechanize::SpamCop">WWW::Mechanize::SpamCop</a></p>
+
+</li>
+<li><p><a href="/pod/WWW::Mechanize::Timed">WWW::Mechanize::Timed</a></p>
+
+</li>
+<li><p><a href="/pod/WWW::SourceForge">WWW::SourceForge</a></p>
+
+</li>
+<li><p><a href="/pod/WWW::Yahoo::Groups">WWW::Yahoo::Groups</a></p>
+
+</li>
+<li><p><a href="/pod/WWW::Scripter">WWW::Scripter</a></p>
+
+</li>
+</ul>
+
+<h1 id="ACKNOWLEDGEMENTS">ACKNOWLEDGEMENTS</h1>
+
+<p>Thanks to the numerous people who have helped out on WWW::Mechanize in one way or another, including Kirrily Robert for the original <code>WWW::Automate</code>, Lyle Hopkins, Damien Clark, Ansgar Burchardt, Gisle Aas, Jeremy Ary, Hilary Holz, Rafael Kitover, Norbert Buchmuller, Dave Page, David Sainty, H.Merijn Brand, Matt Lawrence, Michael Schwern, Adriano Ferreira, Miyagawa, Peteris Krumins, Rafael Kitover, David Steinbrunner, Kevin Falcone, Mike O&#39;Regan, Mark Stosberg, Uri Guttman, Peter Scott, Phillipe Bruhat, Ian Langworth, John Beppu, Gavin Estey, Jim Brandt, Ask Bjoern Hansen, Greg Davies, Ed Silva, Mark-Jason Dominus, Autrijus Tang, Mark Fowler, Stuart Children, Max Maischein, Meng Wong, Prakash Kailasa, Abigail, Jan Pazdziora, Dominique Quatravaux, Scott Lanning, Rob Casey, Leland Johnson, Joshua Gatcomb, Julien Beasley, Abe Timmerman, Peter Stevens, Pete Krawczyk, Tad McClellan, and the late great Iain Truskett.</p>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>Andy Lester &lt;andy at petdance.com&gt;</p>
+
+<h1 id="COPYRIGHT-AND-LICENSE"><a id="COPYRIGHT"></a>COPYRIGHT AND LICENSE</h1>
+
+<p>This software is copyright (c) 2004-2016 by Andy Lester.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+  
+        <div id="install-instructions-dialog" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Module Install Instructions</h4>
+            </div>
+            <div class="modal-body">
+                <p>To install WWW::Mechanize, simply copy and paste either of the commands in to your terminal</p>
+                <p><a href="/pod/distribution/App-cpanminus/bin/cpanm">cpanm</a></p>
+                <pre>
+                    cpanm WWW::Mechanize</pre>
+                <p><a href="/pod/CPAN">CPAN shell</a></p>
+                <pre>
+                    perl -MCPAN -e shell
+                    install WWW::Mechanize</pre>
+                <p>For more information on module installation please visit <a href="https://www.cpan.org/modules/INSTALL.html">the detailed CPAN module installation guide</a>.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" data-dismiss="modal" class="btn">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+  </div>
+</div>
+
+                </div>
+            </div>
+
+            <div class="row footer">
+                <div class="hidden-xs hidden-sm col-md-2">&nbsp;</div>
+                <div class="col-xs-2 col-sm-1 col-md-1" style="text-align: center">
+                    <a href="https://fastapi.metacpan.org">API</a>
+                </div>
+                <div class="col-xs-5 col-sm-3 col-md-2" style="text-align: center">
+                    <a href="/about">About MetaCPAN</a>
+                </div>
+                <div class="hidden-xs col-sm-2 col-md-2" style="text-align: center">
+                    <a href="/mirrors">CPAN Mirrors</a>
+                </div>
+                <div class="hidden-xs col-sm-3 col-md-2" style="text-align: center">
+                    <a href="https://github.com/metacpan/metacpan-web">Fork metacpan.org</a>
+                </div>
+                <div class="hidden-xs col-sm-1 col-md-1" style="text-align: center">
+                    <a href="https://www.perl.org/">Perl.org</a>
+                </div>
+            </div>
+
+            <div class="row" style="padding: 50px 15px">
+              <div class="hidden-xs col-md-3 text-right" style="padding:25px">
+                <span class="hidden-phone" style="color: #999">Hosting generously provided by:</span>
+              </div>
+              <div class="col-xs-9 col-md-3" style="padding:25px">
+                <a href="https://www.bytemark.co.uk/r/metacpan.org/" target="_blank">
+                  <img width="210" src="/static/images/sponsors/bytemark_logo.png">
+                </a>
+              </div>
+              <div class="col-xs-9 col-md-3" style="padding:15px">
+                <a target="_blank" href="https://www.liquidweb.com/">
+                  <img width="170" src="/static/images/sponsors/liquidweb_color.png">
+                </a>
+              </div>
+              <div class="col-xs-9 col-md-3" style="padding:15px">
+                <a href="https://www.fastly.com/" target="_blank">
+                  <img src="/static/images/sponsors/fastly_logo.png" width=110 height=51>
+                </a>
+              </div>
+            </div>
+        </div>
+        <div class="modal fade" tabindex="-1" role="dialog" id="keyboard-shortcuts">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Keyboard Shortcuts</h4>
+              </div>
+              <div class="modal-body row">
+                <div class="col-md-6">
+  <table class="table keyboard-shortcuts">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Global</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="keys">
+          <kbd>s</kbd>
+        </td>
+        <td>Focus search bar</td>
+      </tr>
+      <tr>
+        <td class="keys">
+          <kbd>?</kbd>
+        </td>
+        <td>Bring up this help dialog</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table keyboard-shortcuts">
+    <thead>
+      <tr>
+        <th></th>
+        <th>GitHub</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="keys">
+          <kbd>g</kbd> <kbd>p</kbd>
+        </td>
+        <td>Go to pull requests</td>
+      </tr>
+      <tr>
+        <td class="keys">
+          <kbd>g</kbd> <kbd>i</kbd>
+        </td>
+        <td>go to github issues (only if github is preferred repository)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="col-md-6">
+  <table class="table keyboard-shortcuts">
+    <thead>
+      <tr>
+        <th></th>
+        <th>POD</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="keys">
+          <kbd>g</kbd> <kbd>a</kbd>
+        </td>
+        <td>Go to author</td>
+      </tr>
+      <tr>
+        <td class="keys">
+          <kbd>g</kbd> <kbd>c</kbd>
+        </td>
+        <td>Go to changes</td>
+      </tr>
+      <tr>
+        <td class="keys">
+          <kbd>g</kbd> <kbd>i</kbd>
+        </td>
+        <td>Go to issues</td>
+      </tr>
+      <tr>
+        <td class="keys">
+          <kbd>g</kbd> <kbd>d</kbd>
+        </td>
+        <td>Go to dist</td>
+      </tr>
+      <tr>
+        <td class="keys">
+          <kbd>g</kbd> <kbd>r</kbd>
+        </td>
+        <td>Go to repository/SCM</td>
+      </tr>
+      <tr>
+        <td class="keys">
+          <kbd>g</kbd> <kbd>s</kbd>
+        </td>
+        <td>Go to source</td>
+      </tr>
+      <tr>
+        <td class="keys">
+          <kbd>g</kbd> <kbd>b</kbd>
+        </td>
+        <td>Go to file browse</td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
+              </div>
+              <div class="modal-footer"></div>
+            </div>
+          </div>
+        </div>
+    </body>
+</html>
